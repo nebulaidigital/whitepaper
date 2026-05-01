@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+*.egg-info/
+*.egg
+build/
+dist/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Project-specific
+calibration/grid_searches/*.json
+calibration/sensitivity/*.json
+data/processed/*.parquet
+data/processed/*.csv
+paper/figures/*.png
+paper/figures/*.svg
+*.log
+
+# Keep the readme files
+!data/raw/README.md
+!data/processed/README.md
+!calibration/README.md
+
+# Test outputs
+.pytest_cache/
+.coverage
+htmlcov/

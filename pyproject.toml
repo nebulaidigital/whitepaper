@@ -1,0 +1,57 @@
+[project]
+name = "nebulai-ai-economy"
+version = "0.1.0"
+description = "Macroeconomic simulation of the Participatory AI Economy framework"
+authors = [{ name = "Nebulai Corp", email = "partnerships@nebulai.com" }]
+license = { text = "MIT" }
+readme = "README.md"
+requires-python = ">=3.11"
+
+dependencies = [
+    "numpy>=2.0",
+    "pandas>=2.2",
+    "scipy>=1.13",
+    "matplotlib>=3.9",
+    "seaborn>=0.13",
+    "statsmodels>=0.14",
+    "requests>=2.31",
+    "openpyxl>=3.1",
+    # RDM scenario discovery — see PREREGISTRATION.md Hypothesis 9
+    "ema-workbench>=2.5",
+    # For sequence-space-jacobian-based household-side computations
+    # (used in bilateral simulator extension; pinned floor avoids API breaks)
+    "sequence-jacobian>=1.0; python_version>='3.11'",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+    "ruff>=0.5",
+    "ipykernel>=6.29",
+    "jupyter>=1.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "N", "C90"]
+ignore = ["E501"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+addopts = "-v --tb=short"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
