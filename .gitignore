@@ -39,3 +39,11 @@ paper/figures/*.svg
 .pytest_cache/
 .coverage
 htmlcov/
+
+# Simulation results
+results/*.csv
+results/*.json
+results/*.parquet
+results/*.png
+results/*.svg
+!results/.gitkeep
