@@ -1360,16 +1360,24 @@ layer. Pillar 4: reskilling at scale (Card-Kluve-Weber high-end
 calibration). Pillar 5: open-weights mandate. Pillar 6: 3% AI tax,
 OECD-coordinated.
 
-**Trajectory delta vs. status quo at 2036.**
-- US labor share: +0.16pp (modest gain via Pillar 4)
-- US top-1% wealth share: 0.00pp (Pillars 1 and 6 alone insufficient
-  at the framework's modest calibrations)
-- US mean markup: −0.02 (small dampening from Pillar 5 + Pillar 2)
-- US real GDP: −0.15% (small coordination cost)
-- US median household real income: **+5.0%** (Pillar 4 + Pillar 6
-  transfers + Pillar 2 modest GDP boost)
+**Trajectory delta vs. status quo at 2036** (v2.0 calibration with
+documented Pillar 1 × Pillar 6 substitutability and Pillar 4 × Pillar
+5 complementarity).
+- US labor share: +0.18pp (modest gain via Pillar 4, amplified ~15%
+  by Pillar 4 × Pillar 5 complementarity)
+- US top-1% wealth share: 0.00pp (Pillars 1 and 6 alone insufficient at
+  the framework's modest calibrations; sub-additivity per Hypothesis 6
+  further dampens)
+- US mean markup: −0.029 (Pillar 5 dampening reduced under v2.0 because
+  post-DeepSeek baseline already absorbed much of the open-weights
+  effect)
+- US real GDP: −0.11% (small coordination cost)
+- US median household real income: **+3.4%** (v1.0 reported +5.0%;
+  v2.0 lower because Pillar 4 central effect reduced to 0.08 per
+  Brookings Hamilton 2024 and Pillar 1 × Pillar 6 substitutability
+  active)
 - US substitute-worker employment: +0.01%
-- Geopolitical stability: 0.0 (Pillar 3 mild positive effect)
+- Geopolitical stability: +0.9 (Pillar 3 modest positive effect)
 
 **Time-to-effect profile.** Reskilling (Pillar 4) effects start within
 2–3 years; transfer-funded median income gains within 1–2 years.
@@ -1408,13 +1416,14 @@ Tiered openness for above-capability-threshold systems (open methodology
 Capital ($25K grant at 18) funded by lab surplus + AI tax. OECD-
 coordinated AI tax at 5%. Reskilling retained.
 
-**Trajectory delta vs. status quo at 2036.**
+**Trajectory delta vs. status quo at 2036** (v2.0 with CERN-AI lab ×
+compute governance complementarity active).
 - US labor share: +0.16pp
-- US top-1% wealth share: −0.25pp (UBC effect + AI tax)
-- US mean markup: **−0.066** (substantial dampening via CERN-AI public
-  capability competing with private)
-- US real GDP: −0.25%
-- US median income: +5.0%
+- US top-1% wealth share: −0.23pp (UBC effect + AI tax)
+- US mean markup: **−0.089** (v1.0 reported −0.066; v2.0 stronger via
+  +30% complementarity from lab × treaty)
+- US real GDP: −0.05% (smaller drag than v1.0)
+- US median income: +4.7%
 - CN top-1% wealth share: −0.25pp (parallel UBC if cooperation engaged)
 - Geopolitical stability: **+2.4 points** (treaty + public lab signal
   cooperation)
@@ -1594,13 +1603,19 @@ compatibility, verifiability, time consistency):
 7. AI tax (OECD-coordinated, 6%)
 8. Reskilling at scale (Pillar 4 retained — passes test as-is)
 
-**Trajectory delta vs. status quo at 2036.**
+**Trajectory delta vs. status quo at 2036** (v2.0 with multiple active
+interactions: lab × treaty complementarity, structural separation × AI
+tax complementarity, capability disclosure × structural separation
+complementarity, UBC × AI tax substitutability).
 - US labor share: +0.16pp
-- US top-1% wealth share: **−0.50pp** (UBC + AI tax)
-- US mean markup: **−0.141** (largest dampening; compute treaty +
-  CERN-AI + structural separation)
-- US real GDP: −0.30%
-- US median income: +5.1%
+- US top-1% wealth share: **−0.41pp** (v1.0 reported −0.50pp; v2.0
+  reduced ~20% by UBC × AI tax substitutability — both target
+  overlapping median-household recipient pool)
+- US mean markup: **−0.204** (v1.0 reported −0.141; v2.0 stronger via
+  multiple complementarity effects)
+- US real GDP: −0.10%
+- US median income: +5.5% (v1.0 reported +5.1%; v2.0 stronger via
+  structural separation × AI tax complementarity)
 - CN top-1% wealth share: −0.50pp
 - Geopolitical stability: **+2.4 points**
 
@@ -1742,27 +1757,40 @@ Above ~40%, all pillars activate. The G7-plus coalition (~70% of
 frontier compute) clears the threshold comfortably; smaller coalitions
 may not.
 
-**Finding G. Package E (Direct Redistribution) wins on distribution
-across all parameter draws but trades off other dimensions.** UBI +
-wealth tax + UBC stack dominates 100% of futures on top-1% wealth share
-reduction and median income gain. But Package E shows zero or negative
-effect on labor share, market structure, and AI sector competition.
+**Finding G. Package E (Direct Redistribution) wins on top-1% wealth
+share across all parameter draws.** UBI + wealth tax + UBC stack
+dominates 100% of futures on top-1% wealth share reduction. But Package
+E shows zero or negative effect on labor share, market structure, and
+AI sector competition.
 
 **Finding H. Package F (Build-Different-AI) wins on growth.** Directed
 labor-augmenting R&D produces +1.5% GDP boost across the parameter
-range. No other package matches this. But Package F shows weaker effects
-on distribution and market structure.
+range, winning 100% of futures on real GDP growth. No other package
+matches this. But Package F shows weaker effects on distribution and
+market structure.
 
-**Finding I. Package C (CERN-AI) and Package G dominate on geopolitical
+**Finding I. Package H (Korinek-Scenario-Conditional) wins on median
+household income across all parameter draws (v2.0 update).** The
+scenario-adaptive intensity approach delivers higher median income
+gains than any static package — +13.8% at central calibration. Package
+E (Direct Redistribution) is second on this metric. The adaptive
+mechanism exploits scenario information that static packages don't.
+This was not a v1.0 finding because Package H is a v2.0 addition.
+
+**Finding J. Package C (CERN-AI) and Package G dominate on geopolitical
 stability and markup compression.** Both rely on compute governance and
 public-lab capability. Both require international coordination that
-status quo and Packages D/E/F do not.
+status quo and Packages D/E/F do not. Package C wins 85.8% of futures
+on geopolitical stability; Package G tied or close in most cells.
 
-**Finding J. Sovereign equity (Pillar 1) effect on top-1% wealth share
-is approximately zero at 10% acquisition fraction.** At 20% (the Q1 2026-
-feasible higher calibration discussed in Question 5), the effect is
-−0.4 to −0.8pp. The framework's original 10% calibration is materially
-below what the 2026 baseline supports.
+**Finding K. Sovereign equity (Pillar 1) effect on top-1% wealth share
+is approximately zero at 10% acquisition fraction, and made smaller
+by Pillar 6 substitutability (v2.0 update).** At 20% (the Q1 2026-
+feasible higher calibration), the effect is −0.4 to −0.8pp before
+substitutability, ~25% less after. The framework's original 10%
+calibration is materially below what the 2026 baseline supports;
+the Pillar 1 × Pillar 6 interaction further argues for selecting one
+mechanism at higher intensity rather than both at moderate intensity.
 
 ## 5.3 Genuinely uncertain findings
 
@@ -1777,10 +1805,12 @@ expensive infrastructure with limited rent-compression effect. The
 empirical analog (CERN, ITER, ISS) doesn't directly answer this.
 
 **Finding L. The actual capital-flight elasticity for AI capital
-specifically is unknown.** Empirical analogs (Bach 2014, Brülhart 2022)
-are for wealth-tax responses on diversified portfolios. AI capital is
-more mobile in principle but more state-anchored in 2026 practice. The
-RDM range [0.003, 0.015] /yr/pp is wide because of this uncertainty.
+specifically is unknown.** Empirical analogs (Bach 2014, Brülhart 2022,
+Jakobsen 2020, Saez-Zucman 2022) are for wealth-tax responses on
+diversified portfolios. AI capital is more mobile in principle but
+more state-anchored in 2026 practice. The v2.0 RDM range
+[0.002, 0.012] /yr/pp is narrower than v1.0 reflecting Jakobsen et al.
+estimates, but the AI-specific elasticity remains genuinely unknown.
 
 **Finding M. The political feasibility of any package depends on
 parameters the simulation cannot estimate.** Hostile critique from
@@ -1793,8 +1823,9 @@ welfare evidence; it does not provide political feasibility evidence.
 **Surprise 1. The framework does not Pareto-dominate alternatives.** The
 original design intuition was that combining all six pillars would beat
 any specialized package on most dimensions. The simulation shows the
-opposite: Package E dominates on distribution, Package F on growth,
-Package C on markup. The framework places middle-of-pack everywhere.
+opposite: Package E dominates on top-1% wealth share, Package F on
+growth, Package C on markup, **Package H on median income (v2.0 finding)**.
+The framework places middle-of-pack everywhere.
 
 **Surprise 2. The strictly-positive median-voter sufficiency condition
 fails for the framework.** Top deciles (8–10) experience exactly zero
@@ -1819,7 +1850,30 @@ than the original framework treated them.
 expected.** Hypothesis 1 was originally formulated as a conservative
 hedge against possible Pillar 5 backfire. The preliminary findings
 suggest the backfire is real and substantial — Pillar 5 in its current
-form is the framework's weakest link.
+form is the framework's weakest link. The v2.0 calibration update
+(post-DeepSeek API pricing) makes this even sharper: most of the
+markup compression Pillar 5 was supposed to produce has already
+occurred endogenously.
+
+**Surprise 6. Scenario-adaptive intensity (Package H) dominates static
+intensity on median income (v2.0 finding).** When pillar intensity scales
+with realized AI productivity (per Korinek 2024 four-scenario taxonomy),
+median income gain is +13.8% vs. +9.4% for the next-best static package
+(Package E Direct Redistribution). The 4.4pp gap represents the value
+of *using scenario information* rather than committing to one intensity
+a priori. This argues for the adaptive-policy design principle:
+adjustment mechanisms are first-order policy design choices, not
+implementation details.
+
+**Surprise 7. Lever interactions materially shift comparative results
+(v2.0 finding).** The seven documented interactions in
+`src/core/interactions.py` shift specific package outcomes by ±20%
+on key metrics. CERN-AI × Compute Governance complementarity strengthens
+Package C markup compression. Pillar 1 × Pillar 6 substitutability
+weakens Package B distributional effect. The static-additive simulation
+of v1.0 over-stated framework Pillar 1 + Pillar 6 combined effect by
+roughly the substitutability magnitude. Modeling interactions explicitly
+is a meaningful methodological improvement, not a cosmetic one.
 
 ## 5.5 What we expected but didn't find
 
