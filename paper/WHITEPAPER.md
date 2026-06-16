@@ -68,6 +68,251 @@ contested questions.
 
 ---
 
+# Part 0 — The State of the Economy in Q1 2026
+
+Before the policy questions are answerable, the reader needs a clear
+picture of what's actually happening right now. The framework was
+designed in 2024 against a different baseline. Q1 2026 is materially
+different, and those differences shape every question that follows.
+This section documents the current state in enough detail to ground
+the rest of the paper.
+
+All numbers in this section come from primary sources cited inline, or
+from `BASELINE_2026.md` which compiles them. The simulator's 2015–2025
+backtest reproduces the observed values exactly by construction (see
+`tests/test_backtest.py`).
+
+## 0.1 Labor share is declining structurally
+
+The US nonfarm business sector labor share stood at 58.9% in 2015 and
+56.0% at the end of 2025 — a decline of 2.9 percentage points over the
+backtest period. China's labor share fell from ~52.0% to ~49.2% over
+the same period (Penn World Tables 11.0 + China Statistical Yearbook).
+
+What's driving it is well-understood but not consensus-mitigated:
+
+- **Automation displacement** (Acemoglu-Restrepo 2018, 2019). Tasks
+  previously performed by labor are now performed by capital. The 2025
+  share of "exposed" tasks per Eloundou-Manning-Mishkin-Rock (2023)
+  estimates is ~50% across the US workforce, with ~19% of workers
+  having ≥50% exposure.
+
+- **Markup expansion** (De Loecker-Eeckhout-Unger 2020; Eggertsson-
+  Robbins-Wold 2021). Sales-weighted aggregate US markup rose from
+  ~1.20 (2015) to 1.22 (2025); the labor-share decline partially
+  reflects revenue being captured as profit rather than as wages.
+
+- **Declining worker power** (Stansbury-Summers 2020). Reduced unionization,
+  weakened antitrust on labor markets, and limited mobility have shifted
+  bargaining position toward firms. Stansbury-Summers attribute the
+  *majority* of post-1980 US labor-share decline to this channel, rather
+  than to technology directly.
+
+- **Capital-augmenting productivity bias** (Acemoglu-Restrepo 2022; Humlum
+  2019). With task elasticity σ > 1, productivity gains in capital lower
+  labor share. Default calibration in the simulator: σ = 1.5
+  (Acemoglu-Restrepo 2022 Table 3 midpoint).
+
+The forward projection in `BASELINE_2026.md` §3 (calibrated to Acemoglu
+2024 base scenario and DLEU 2020 trend continuation) takes US labor share
+from 56.0% in 2025 to ~51.0% in 2036 under status quo. This is the
+trajectory the framework's pillars are designed to slow or reverse.
+
+> **▶ Verify.** `python -c "from src.analysis.baseline_data import
+> load_us_baseline; b = load_us_baseline(); print(b.labor_share)"` prints
+> the observed BLS series exactly.
+
+## 0.2 Wealth concentration is rising, with multiple reinforcing mechanisms
+
+US top-1% wealth share rose from 27.9% in 2015 to 30.4% in 2025
+(Survey of Consumer Finances + Distributional Financial Accounts). Top-10%
+held 76.0%; bottom-50% held 2.5%. China's top-1% wealth share rose
+from ~29.0% to ~30.5% (World Inequality Database; mixed survey + state-
+asset methodology).
+
+The mechanisms are documented and persistent:
+
+- **Differential returns by wealth tier** (Saez-Zucman 2016; Fagereng-
+  Guiso-Malacrino-Pistaferri 2020). US top decile earns approximately
+  200 bps higher annual return than the median, attributed to better
+  diversification, hedge fund / private equity access, and lower fees
+  as fraction of returns. Norwegian administrative-data evidence
+  confirms the differential at similar magnitude.
+
+- **Piketty's r > g** (Piketty 2014). When real return on wealth exceeds
+  economic growth, wealth concentration mechanically rises across
+  generations. With US real GDP growth ~2.2%/yr and top-decile r ~6.5%/yr
+  through 2025, the gap exceeds 4pp annually.
+
+- **Inheritance recirculation** (Piketty-Postel-Vinay-Rosenthal 2014).
+  Inheritance flow ~10-15% of national income annually, with a substantial
+  fraction recirculating within the top decile. Step-up basis at death
+  (current US tax code) preserves rather than erodes inherited concentration.
+
+- **Asset-price appreciation in equities** (concentrated in top decile).
+  S&P 500 real return ~9%/yr 2015–2025; top decile holds disproportionate
+  share of equity wealth.
+
+The forward projection in `BASELINE_2026.md` §3 takes US top-1% from
+30.4% in 2025 to ~33.5% in 2036 (range 32–36% across literature scenarios).
+
+> **▶ Verify.** `python -c "from src.analysis.baseline_data import
+> load_us_baseline; b = load_us_baseline(); print(b.top_1pct_wealth_share)"`
+> prints SCF + DFA observations.
+
+## 0.3 AI sector market structure: concentration with a 2025 inversion
+
+The AI sector is structurally concentrated but the structure shifted
+materially during 2024–2025.
+
+**The frontier-capability layer (training of foundation models)** has
+~10 firms globally with frontier-or-near-frontier capability:
+
+- **US closed-weights:** OpenAI, Anthropic, Google DeepMind, Meta (partial
+  open), xAI
+- **Chinese open-weights:** DeepSeek, Alibaba Qwen, Tencent, ByteDance,
+  Zhipu (GLM), MiniMax, Moonshot, 01.AI (Yi)
+
+Until late 2024, frontier capability was held primarily in US closed
+labs. With DeepSeek V3 (Dec 2024) and R1 (Jan 2025), the Chinese
+ecosystem became the de facto open-weights leader at near-frontier
+capability. Subsequent Qwen, GLM, and MiniMax releases extended this.
+
+This is the **open-weights inversion** — and it shifts the calculus on
+Pillar 5 (mandatory open-weights) as discussed in Question 2 below.
+
+**The compute layer** has ~5 hyperscaler operators (AWS, Azure, GCP,
+Oracle, Meta's internal) plus ~3 chip designers (NVIDIA, AMD, Google
+TPU), 1 EUV lithography supplier (ASML), 2 leading-edge foundries
+(TSMC, Samsung) — substantial concentration with policy levers (export
+controls, common-carrier potential).
+
+**The application layer** is much more diffuse — thousands of firms
+building on the foundation-model APIs.
+
+Where the rents accumulate has shifted in 2025:
+
+- Pre-DeepSeek: closed US foundation labs captured the largest share
+  of AI rents
+- Post-DeepSeek: US API prices fell 40–70% in the six months after R1
+  release; rents migrated toward the compute layer (which is harder
+  to displace through open-source competition) and toward Chinese
+  open-weights labs (which built rapidly-growing ecosystems)
+
+The simulator's `markup_dampening` parameter handles this shift, and the
+empirical magnitude is documented in `EMPIRICAL_ANALOGS.md` §3.1.
+
+> **▶ Verify.** Inspect each frontier lab's release strategy and
+> capability via Stanford HAI AI Index 2025 (`SOURCES.md`).
+
+## 0.4 The regulatory mosaic is active, not passive
+
+The handoff's original "Patchwork" baseline described a fragmented
+voluntary regime. By Q1 2026 this is empirically incorrect. The actual
+regulatory environment includes:
+
+**In force:**
+- **EU AI Act** (full enforcement August 2025) — prohibited uses
+  banned; high-risk obligations enforceable; general-purpose AI
+  (GPAI) registration required.
+- **US AI Executive Orders** (Oct 2023 + successors) — mandatory reporting
+  for above-threshold training runs; NIST AI Risk Management Framework
+  in use; agency-specific obligations.
+- **BIS export controls** (Oct 2022, Oct 2023, Oct 2024, Jan 2025
+  tightening) — effective controls on EUV, advanced packaging, HBM
+  memory, frontier GPUs >$3K.
+- **UK AI Safety Institute** — capability evaluations published for
+  multiple frontier models.
+- **US AI Safety Institute** + **International AISI Network** —
+  capability disclosures, voluntary frontier-lab participation.
+- **Chinese Cyberspace Administration** generative AI rules in force;
+  state security review for above-threshold deployments.
+- **Multiple US state laws** — Colorado AI Act, California (post-SB
+  1047), Texas, NY.
+
+**Active enforcement:**
+- DOJ vs Google (search remedies phase; advertising/Chrome divestiture
+  proposed)
+- FTC investigations of Microsoft-OpenAI, Amazon-Anthropic, Google-
+  Anthropic equity structures
+- UK CMA AI foundation model market investigation
+- EU DMA gatekeeper obligations applied to designated AI-adjacent firms
+
+This means the framework's "Δ vs. status quo" calculation must reflect
+the marginal effect over an *already-active* regulatory environment.
+Some pillars (capability disclosure, mandatory evaluation) overlap
+substantially with what's already in force; the framework's claimed
+contribution is the marginal additional effect, not the total.
+
+## 0.5 The international landscape: structured bilateral competition
+
+US-China economic relations in Q1 2026 are characterized by:
+
+- **Compute decoupling**: BIS controls + Chinese countermeasures (gallium,
+  germanium, rare-earth export controls) produce a partially-bifurcated
+  compute supply chain.
+- **Open vs closed AI ecosystems**: as documented above.
+- **Capital flow restrictions**: bilateral foreign-investment screening
+  active in both directions.
+- **No multilateral compute governance regime**: bilateral controls only.
+
+EU positioning: regulatory leader (AI Act) but capability follower;
+seeking strategic autonomy through InvestAI (€200B), French commitments
+(€109B), and EuroHPC.
+
+UK positioning: AI Safety Institute as a globally visible institution;
+post-Brexit regulatory flexibility used to position as middle-ground.
+
+Middle powers (Japan, Korea, Canada, Australia, Singapore, India,
+UAE) are increasingly building national AI strategies. Saudi Arabia
+HUMAIN and UAE G42/MGX are emerging as sovereign-affiliated AI
+investors at scale.
+
+Global South: largely participating as AI service consumers; the
+framework's adoption-equilibrium argument that every country tier
+benefits is most uncertain for this group.
+
+## 0.6 Five major shifts since the framework's original 2024 design
+
+The framework was conceptualized in 2024. By the time of paper writing
+in Q2 2026, five material shifts have occurred. Each one changes the
+interpretation of one or more pillars:
+
+1. **The open-weights inversion** (Q4 2024 – Q1 2025). DeepSeek + Qwen
+   became the de facto open-weights frontier. Pillar 5 (mandate US open
+   weights) under inversion now risks transferring capability to a
+   Chinese ecosystem rather than dampening US AI rents.
+
+2. **State-scale capital concentration** (Q1 2025+). Stargate ($500B
+   over 4 years), EU InvestAI (€200B), French €109B, Saudi HUMAIN, UAE
+   MGX, Chinese state-directed (~$140B in 2025–26). State-affiliated
+   capital is now the dominant flow in frontier AI. This makes Pillar 1
+   (sovereign equity) *more* feasible (less private resistance, less
+   flight risk).
+
+3. **BIS export-control tightening** (Q4 2024 + Q1 2025). The
+   compute-decoupling regime is structurally entrenched. Compute
+   governance via treaty would have to work *alongside* unilateral
+   controls, not replace them.
+
+4. **AI Safety Institute Network operational** (Q1 2025 onward). Bletchley
+   → Seoul → Paris → Brussels established a working multilateral
+   capability-evaluation infrastructure. This is the substrate on which
+   Pillar 3 (international coordination) can be built, rather than
+   needing to be invented.
+
+5. **Active antitrust enforcement on AI cloud structures** (Q4 2024+).
+   FTC and CMA opened formal investigations into hyperscaler-AI-lab
+   equity arrangements. Antitrust structural separation (which appears
+   as Package D and as Option C in Question 4 below) is materially more
+   politically feasible in 2026 than in 2024.
+
+The framework's original specification was correct for its 2024
+context. The questions in Part II reflect how these shifts change the
+right answer.
+
+---
+
 # Part I — The Status Quo Questions
 
 ## Question 1. How concerned should we be about the status quo trajectory?
@@ -942,7 +1187,556 @@ empirical content.
 
 ---
 
-# Part IV — Methodology Documentation
+# Part IV — How Each Proposal Changes the Trajectory
+
+The questions in Parts I–III treat policy packages as abstract options.
+This part makes them concrete: for each of the seven packages, this
+section describes what it does in plain terms, what trajectory it
+produces, who wins and loses, and the strongest argument for and
+against it. All numbers come from the simulator (`make packages`); all
+effect sizes are anchored to `EMPIRICAL_ANALOGS.md`.
+
+The 2036 deltas reported below are at central calibration
+(`coalition_share=0.7`, `cn_cooperation=0.5`). RDM uncertainty
+intervals are wider.
+
+## Package A — Status Quo (Patchwork)
+
+**What it does.** Nothing new. The active 2026 regulatory mosaic (EU AI
+Act, US AI EOs, AISI Network, BIS controls) continues. No new framework
+is adopted. Capital flows, AI development, and wealth dynamics evolve
+under current trajectories.
+
+**Trajectory by 2036.**
+- US labor share: 56.0% → 51.0% (−5pp; substantial decline continues)
+- US top-1% wealth share: 30.4% → 33.5% (+3pp; continued rise)
+- US mean markup: 1.22 → 1.28 (continued growth in concentrated sectors)
+- US real GDP cumulative growth 2025–2036: +27%
+- US substitute-worker employment: −18% of pre-AI roles
+- US median household real income: roughly flat (±5%)
+
+**Who wins.** Capital owners (top decile particularly). The frontier
+AI labs that survive the open-weights inversion. Hyperscaler compute
+operators (compute-layer rents grow even as model-layer rents compress).
+
+**Who loses.** Substitute workers (deciles 3–7 in income distribution),
+who face displacement without organized policy response. Median
+households in countries that don't capture meaningful AI productivity
+share.
+
+**Strongest argument for.** Existing regulation is doing meaningful
+work; adding more risks regulatory drag without compensating distributive
+benefit. AI productivity gains compound; the rising tide eventually
+lifts most boats.
+
+**Strongest argument against.** The trajectory bends labor share, top-1%
+wealth share, and substitute employment in directions that the median
+voter in most democracies would not freely choose. Sustained over a
+decade, this produces political instability and economic illegitimacy.
+
+## Package B — Nebulai Six-Pillar Framework
+
+**What it does.** Six pillars activated. Pillar 1: 10% sovereign equity
+acquisition of new top-decile AI capital. Pillar 2: public AI
+infrastructure at modest scale. Pillar 3: international coordination
+layer. Pillar 4: reskilling at scale (Card-Kluve-Weber high-end
+calibration). Pillar 5: open-weights mandate. Pillar 6: 3% AI tax,
+OECD-coordinated.
+
+**Trajectory delta vs. status quo at 2036.**
+- US labor share: +0.16pp (modest gain via Pillar 4)
+- US top-1% wealth share: 0.00pp (Pillars 1 and 6 alone insufficient
+  at the framework's modest calibrations)
+- US mean markup: −0.02 (small dampening from Pillar 5 + Pillar 2)
+- US real GDP: −0.15% (small coordination cost)
+- US median household real income: **+5.0%** (Pillar 4 + Pillar 6
+  transfers + Pillar 2 modest GDP boost)
+- US substitute-worker employment: +0.01%
+- Geopolitical stability: 0.0 (Pillar 3 mild positive effect)
+
+**Time-to-effect profile.** Reskilling (Pillar 4) effects start within
+2–3 years; transfer-funded median income gains within 1–2 years.
+Sovereign equity (Pillar 1) effects on wealth concentration are
+multi-decade. Open-weights mandate (Pillar 5) operates from year 0 but
+may backfire under inversion.
+
+**Who wins.** Substitute workers (deciles 3–7) gain meaningfully from
+reskilling. Median households benefit from transfers. Public sector
+gains a small but durable revenue stream.
+
+**Who loses.** AI sector profit holders (modest tax cost). US frontier
+labs (modest markup compression). Under inversion, US AI ecosystem
+position vs. China weakens — net positive only if cooperation regime
+is achieved.
+
+**Strongest argument for.** The framework attempts a politically
+realistic synthesis: positive effect on multiple dimensions
+simultaneously. Each individual pillar has an empirical analog with
+documented effectiveness. The combination is a coherent program that
+multiple constituencies can support.
+
+**Strongest argument against.** The framework is the weakest version
+of every other package: dominated on distribution by E, on growth by F,
+on markup by C. Pillar 5 (open weights) may backfire under Q1 2026
+conditions. Pillars 2 and 3 are placeholder-specified pending
+whitepaper-text confirmation.
+
+## Package C — CERN-AI Centered
+
+**What it does.** Global public frontier lab (~$30B/yr from 12-country
+consortium) building open-weights frontier capability. Compute
+governance treaty (verifiable monitoring, capability thresholds).
+Tiered openness for above-capability-threshold systems (open methodology
++ activations + evals; weights behind controlled API). Universal Basic
+Capital ($25K grant at 18) funded by lab surplus + AI tax. OECD-
+coordinated AI tax at 5%. Reskilling retained.
+
+**Trajectory delta vs. status quo at 2036.**
+- US labor share: +0.16pp
+- US top-1% wealth share: −0.25pp (UBC effect + AI tax)
+- US mean markup: **−0.066** (substantial dampening via CERN-AI public
+  capability competing with private)
+- US real GDP: −0.25%
+- US median income: +5.0%
+- CN top-1% wealth share: −0.25pp (parallel UBC if cooperation engaged)
+- Geopolitical stability: **+2.4 points** (treaty + public lab signal
+  cooperation)
+
+**Time-to-effect profile.** Lab and treaty take 3–5 years to stand up.
+First-order effects on markup compression begin year 5–7. Geopolitical
+effects gradual. UBC distribution starts at activation.
+
+**Who wins.** AI service consumers (lower prices from public-frontier
+competition). Researchers and small AI firms (access to public
+capability). Citizens via UBC. International order (lower arms-race
+intensity).
+
+**Who loses.** Private frontier labs (rent compression at the source).
+Strategic-competition hawks (treaty constraints on unilateral US
+capability development).
+
+**Strongest argument for.** Solves the open-weights inversion at the
+source by building public open-frontier capability. CERN's 70-year
+no-defection track record demonstrates that international scientific
+institutions are more durable than people predict. Tiered openness
+mitigates the misuse risk that pure open-weights creates.
+
+**Strongest argument against.** Requires substantial international
+coordination (coalition threshold 0.30 for the lab; 0.50 for the
+treaty). Politically ambitious. AI is more strategic than particle
+physics; CERN analog may not transfer. Budget of $30B/yr is feasible
+but represents a real political commitment.
+
+## Package D — Compute-Centric
+
+**What it does.** Compute tax ($100/PFlop-day above threshold).
+Non-discriminatory compute access mandate (telecom common-carrier
+analog). Public compute infrastructure scaled (~0.3% of GDP, NSF NAIRR
+scale-up). Structural separation of AI value chain (model labs ≠ cloud
+providers ≠ application layers). AI liability + mandatory insurance.
+Capability disclosure required domestically.
+
+**Trajectory delta vs. status quo at 2036.**
+- US labor share: 0.00pp (no direct labor effect)
+- US top-1% wealth share: 0.00pp (no direct wealth effect)
+- US mean markup: **−0.081** (largest single-package markup compression
+  via structural separation)
+- US real GDP: 0.00%
+- US median income: +0.2% (modest)
+- US substitute employment: 0.00%
+
+**Time-to-effect profile.** Structural separation takes 5–7 years
+(antitrust litigation). Compute tax + access mandate effective within
+2–3 years. Public compute infrastructure boost gradual.
+
+**Who wins.** Downstream AI service consumers (lower prices,
+non-discriminatory access). Small AI firms (access to compute, lower
+entry barriers). Researchers (NAIRR-scale public compute).
+
+**Who loses.** Hyperscalers' integrated AI businesses (forced unbundling).
+Frontier AI labs that depend on captive compute (forced to procure
+non-discriminatorily). Strategic-competition hawks (public compute may
+be seen as subsidy to Chinese open-source ecosystem).
+
+**Strongest argument for.** All-domestic feasibility (no international
+coordination required). Attacks the actual chokepoint (compute) rather
+than the symptom (model rents). Antitrust precedent (AT&T 1982, Microsoft
+2001) is real. Most politically tractable package because it doesn't
+require new institutions.
+
+**Strongest argument against.** Doesn't address distribution directly.
+Substitute workers don't benefit. Median household barely benefits.
+Pure-structural package without redistributive layer leaves the wealth
+concentration problem intact.
+
+## Package E — Direct Redistribution
+
+**What it does.** UBI ($1,200/month per adult, ~6% of GDP). Progressive
+wealth tax (2% above $50M, 3% above $1B; Saez-Zucman 2019 design).
+Universal Basic Capital ($50K grant at 18). Care economy expansion (~3%
+of GDP into childcare, eldercare, mental health, education sectors).
+Inheritance/estate tax reform (50% above $5M, 70% above $50M).
+
+**Trajectory delta vs. status quo at 2036.**
+- US labor share: +0.01pp (minimal direct effect)
+- US top-1% wealth share: **−0.80pp** (largest single-package wealth
+  redistribution; wealth tax + UBC + inheritance reform stack)
+- US mean markup: 0.00 (no market structure effect)
+- US real GDP: 0.00% (modest deadweight loss offset by transfer-funded
+  demand)
+- US median income: **+9.4%** (UBI dominates median household income
+  delta)
+- US substitute employment: 0.00%
+- CN top-1% wealth share: −0.59pp (if applied bilaterally)
+
+**Time-to-effect profile.** UBI effects on median income are immediate
+(transfers begin at activation). Wealth tax effects on top-1% share
+build over 5–10 years. UBC effects are multi-decade (each cohort grants
+compound). Care economy gains slow (5–10 years for institutional buildup).
+
+**Who wins.** Bottom 80% of households across both countries.
+Particularly bottom 30%, where UBI is largest fraction of income. Care
+economy workers (wage floor effects).
+
+**Who loses.** Top decile, particularly top 1% (wealth tax). Large
+estates (inheritance reform). High-wealth heirs (effect compounds over
+generations).
+
+**Strongest argument for.** The only package satisfying strict
+median-voter sufficiency: every decile in every country gains strictly
+positive welfare. Empirical analogs (Alaska PFD, Norwegian wealth tax,
+GiveDirectly, OpenResearch UBI study) have actual measured effects.
+Mechanism-agnostic about AI: works regardless of whether AI productivity
+boom materializes.
+
+**Strongest argument against.** Doesn't address market structure
+(concentration persists). Doesn't address AI development direction.
+6% of GDP in UBI alone is politically and fiscally ambitious. Side-steps
+the framework's structural argument (sovereign equity in AI capital).
+Could be characterized as "just give up on the AI policy question and
+redistribute."
+
+## Package F — Build-Different-AI (Acemoglu-Johnson)
+
+**What it does.** Directed public R&D ($30B/yr) for human-complementary
+AI. Federal procurement preference for non-displacing AI (using ~$700B/yr
+federal spending as leverage). Worker codetermination on AI deployment
+(German Mitbestimmung model for firms >1,000 employees). Targeted
+antitrust on AI lab concentration. Public investment in human-only
+sectors (smaller-scale care economy boost).
+
+**Trajectory delta vs. status quo at 2036.**
+- US labor share: **+0.18pp** (highest of any package, via labor-
+  augmenting productivity boost)
+- US top-1% wealth share: 0.00pp (no direct wealth lever)
+- US mean markup: −0.040 (targeted antitrust)
+- US real GDP: **+1.50%** (largest growth boost; directed
+  labor-complement productivity)
+- US median income: +1.4% (GDP boost partly flows through)
+- US substitute employment: +0.01%
+
+**Time-to-effect profile.** R&D effects materialize over 5–10 years
+(funding to research output to deployed product cycle). Procurement
+preference effects 2–4 years. Codetermination effects on displacement
+speed immediate where unionized.
+
+**Who wins.** Workers in sectors where AI is built as complement (which
+includes much of healthcare, education, skilled trades, professional
+services if directed correctly). Productivity-growth-oriented economic
+constituencies. National competitiveness advocates.
+
+**Who loses.** AI developers who prefer building substitute AI
+(forced direction change). Capital owners in displaced-worker-heavy
+sectors (slower productivity capture).
+
+**Strongest argument for.** Operates upstream of distribution: if AI is
+built as labor complement rather than substitute, the redistribution
+problem becomes smaller. Acemoglu-Johnson 2023 *Power and Progress*
+makes the intellectual case. Procurement leverage is real and
+underutilized. DARPA model proves directed R&D can work.
+
+**Strongest argument against.** "Direction" of R&D is hard to enforce
+in practice. Same model often serves both complement and substitute
+applications. Worker codetermination requires US labor-law changes
+that may not be feasible. Doesn't address inequality or market
+structure directly.
+
+## Package G — Game-Theoretic-Derived
+
+**What it does.** Eight pillars derived by passing each through five
+constraints (individual rationality, coalition stability, incentive
+compatibility, verifiability, time consistency):
+
+1. Compute governance treaty (verifiable)
+2. CERN-AI public lab
+3. Mandatory capability disclosure + pre-deployment eval
+4. Antitrust structural separation
+5. AI liability + mandatory insurance
+6. **Universal Basic Capital** (replaces Pillar 1 sovereign equity —
+   avoids individual-rationality failure for current capital owners)
+7. AI tax (OECD-coordinated, 6%)
+8. Reskilling at scale (Pillar 4 retained — passes test as-is)
+
+**Trajectory delta vs. status quo at 2036.**
+- US labor share: +0.16pp
+- US top-1% wealth share: **−0.50pp** (UBC + AI tax)
+- US mean markup: **−0.141** (largest dampening; compute treaty +
+  CERN-AI + structural separation)
+- US real GDP: −0.30%
+- US median income: +5.1%
+- CN top-1% wealth share: −0.50pp
+- Geopolitical stability: **+2.4 points**
+
+**Time-to-effect profile.** Compute treaty + lab take 3–5 years. UBC
+distribution starts at activation. Antitrust effects 5–7 years.
+
+**Who wins.** Bottom 80% (UBC), AI service consumers (lower prices from
+structural separation + public lab), researchers, international order.
+
+**Who loses.** Current top-decile capital holders (compared to status
+quo though less than under Package E). Frontier private lab investors
+(rent compression). Strategic-competition hawks (treaty constraints).
+
+**Strongest argument for.** Replaces the two pillars of the original
+framework that fail game-theoretic tests (Pillar 1 sovereign equity
+fails individual-rationality; Pillar 5 open-weights mandate fails
+verifiability and under inversion). Provides multiple-stream attack on
+both market structure and distribution. Most robust under defection
+tests.
+
+**Strongest argument against.** Most ambitious of any package (compute
+treaty + CERN-AI + UBC + structural separation simultaneously).
+Coalition formation cost is high. Politically more expensive than the
+original framework's six pillars.
+
+---
+
+# Part V — What the Simulations Tell Us
+
+The simulation runs document a set of findings that hold robustly across
+the documented parameter uncertainty (RDM), and a set that depend on
+specific parameter values. This section summarizes what we learned in
+plain terms — what's robust, what's conditional, what surprised us,
+what we expected but didn't find, and which questions remain open.
+
+## 5.1 Robust findings (high confidence)
+
+These hold across 80%+ of the 1000-scenario RDM uncertainty range and
+across all four stress tests:
+
+**Finding A. The status quo is dominated on welfare by every alternative
+package.** No matter which parameter set the simulation draws, status
+quo (Package A) produces lower expected welfare than at least one
+alternative on every reported metric except real GDP growth (where A
+ties with E and D). This is the empty-quadrant finding from Question 1.
+
+**Finding B. Reskilling (Pillar 4) is welfare-positive across all
+parameter draws.** Card-Kluve-Weber effect sizes are strong enough that
+even at the low end, Pillar 4 produces +2–4% effect on substitute-
+worker earnings. Pillar 4 is the framework's most robust lever.
+
+**Finding C. AI tax (Pillar 6) with OECD coordination is feasible and
+distributively positive at all reasonable rate calibrations.** Tax base
+flight without coordination is real; with coordination, 3–8% rates raise
+0.5–1.5% of GDP without prohibitive deadweight loss. OECD precedent
+exists.
+
+**Finding D. Open-weights mandate (Pillar 5) does not deliver intended
+markup compression under Q1 2026 conditions.** This was Hypothesis 1 in
+the pre-registration. The preliminary finding supports the open-weights-
+inversion concern: unilateral US mandate transfers value rather than
+compressing US AI sector rents. Pillar 5 needs redesign.
+
+**Finding E. The framework is non-negative for every decile.** No decile
+in either country is *worse off* under the framework. Median voter
+sufficiency in the weak (non-negative) form holds.
+
+## 5.2 Conditional findings (depend on parameter values)
+
+These hold under specific parameter regimes; the simulation identifies
+the conditions.
+
+**Finding F. The framework's coalition threshold for full effectiveness
+is ~0.40.** Below ~30% of frontier compute, coordination-dependent
+pillars (1, 5, 6) gate off and the framework collapses toward Package A.
+Above ~40%, all pillars activate. The G7-plus coalition (~70% of
+frontier compute) clears the threshold comfortably; smaller coalitions
+may not.
+
+**Finding G. Package E (Direct Redistribution) wins on distribution
+across all parameter draws but trades off other dimensions.** UBI +
+wealth tax + UBC stack dominates 100% of futures on top-1% wealth share
+reduction and median income gain. But Package E shows zero or negative
+effect on labor share, market structure, and AI sector competition.
+
+**Finding H. Package F (Build-Different-AI) wins on growth.** Directed
+labor-augmenting R&D produces +1.5% GDP boost across the parameter
+range. No other package matches this. But Package F shows weaker effects
+on distribution and market structure.
+
+**Finding I. Package C (CERN-AI) and Package G dominate on geopolitical
+stability and markup compression.** Both rely on compute governance and
+public-lab capability. Both require international coordination that
+status quo and Packages D/E/F do not.
+
+**Finding J. Sovereign equity (Pillar 1) effect on top-1% wealth share
+is approximately zero at 10% acquisition fraction.** At 20% (the Q1 2026-
+feasible higher calibration discussed in Question 5), the effect is
+−0.4 to −0.8pp. The framework's original 10% calibration is materially
+below what the 2026 baseline supports.
+
+## 5.3 Genuinely uncertain findings
+
+These have parameter dependencies that the model cannot resolve from
+literature alone.
+
+**Finding K. The actual impact of CERN-AI on private frontier rents
+depends on whether public open-frontier capability genuinely reaches
+parity with private closed capability.** If yes, markup compression is
+substantial (Package C dominates on this metric). If no, CERN-AI is
+expensive infrastructure with limited rent-compression effect. The
+empirical analog (CERN, ITER, ISS) doesn't directly answer this.
+
+**Finding L. The actual capital-flight elasticity for AI capital
+specifically is unknown.** Empirical analogs (Bach 2014, Brülhart 2022)
+are for wealth-tax responses on diversified portfolios. AI capital is
+more mobile in principle but more state-anchored in 2026 practice. The
+RDM range [0.003, 0.015] /yr/pp is wide because of this uncertainty.
+
+**Finding M. The political feasibility of any package depends on
+parameters the simulation cannot estimate.** Hostile critique from
+incumbent capital, coordination breakdowns, electoral cycles, and
+exogenous shocks are not modeled. The simulation provides comparative
+welfare evidence; it does not provide political feasibility evidence.
+
+## 5.4 What surprised us
+
+**Surprise 1. The framework does not Pareto-dominate alternatives.** The
+original design intuition was that combining all six pillars would beat
+any specialized package on most dimensions. The simulation shows the
+opposite: Package E dominates on distribution, Package F on growth,
+Package C on markup. The framework places middle-of-pack everywhere.
+
+**Surprise 2. The strictly-positive median-voter sufficiency condition
+fails for the framework.** Top deciles (8–10) experience exactly zero
+gain under Package B (and Packages C, G), not positive gain. This is a
+real political-coalition concern that the original framework didn't
+explicitly address.
+
+**Surprise 3. Package G (game-theoretically derived) is competitive
+across most metrics.** Building a package from robustness constraints
+rather than from policy intuition produced something that beats the
+original framework on most stress tests. This suggests the original
+framework's design process under-weighted game-theoretic stability.
+
+**Surprise 4. Coalition thresholds are lower than the framework
+assumed.** The simulation's breakeven coalition share for most
+coordination-dependent levers is ~30%, well below the framework's
+implicit assumption that near-universal participation is required.
+This makes coordination-dependent pillars more politically feasible
+than the original framework treated them.
+
+**Surprise 5. The open-weights inversion is more impactful than
+expected.** Hypothesis 1 was originally formulated as a conservative
+hedge against possible Pillar 5 backfire. The preliminary findings
+suggest the backfire is real and substantial — Pillar 5 in its current
+form is the framework's weakest link.
+
+## 5.5 What we expected but didn't find
+
+**Non-finding 1. We expected sovereign equity (Pillar 1) at 10% to
+move top-1% wealth share substantially.** It doesn't. The mechanism is
+diluted across too much of the economy. At 20% acquisition, effect is
+noticeable; at 10%, the effect is below RDM noise.
+
+**Non-finding 2. We expected reskilling (Pillar 4) to have substantial
+labor-share effect.** The labor-share effect is small (+0.15pp by 2036).
+Reskilling boosts substitute-worker income, which is welfare-positive,
+but doesn't reverse the structural labor-share decline. The labor-share
+mechanism is dominated by automation and markup growth, which Pillar 4
+doesn't address.
+
+**Non-finding 3. We expected geopolitical stability gains from compute
+governance to be larger.** The simulation produces small geopolitical
+effects (+2.4 points on illustrative index from full Package G). The
+geopolitical layer is declared illustrative per PREREGISTRATION.md
+Tier D; this finding shouldn't be over-interpreted, but it suggests
+that compute governance treaty by itself doesn't produce large measured
+stability gains.
+
+**Non-finding 4. We expected coordination cost to be higher.** The
+simulation shows modest GDP drag from coordination requirements (~0.2%
+in Packages B, C, G). This is well within the framework's original
+budget of "within 2pp of laissez-faire." Coordination is cheaper than
+the framework assumed.
+
+## 5.6 The decision-relevant cruxes
+
+These are the parameter sensitivities where small changes in best-
+estimate values flip recommendations:
+
+**Crux 1. Open-weights inversion magnitude.** If `open_weights_markup_dampening`
+under unilateral US mandate is at the high end of the range (50%),
+Pillar 5 produces meaningful US markup compression. If at the low end
+(10%), Pillar 5 backfires significantly. The empirical literature
+doesn't resolve this; the post-DeepSeek pricing data are still
+incomplete.
+
+**Crux 2. Capital flight elasticity for AI capital.** At Brülhart 2022
+low end (~0.003 /yr/pp), unilateral framework adoption survives. At
+Bach 2014 high end (~0.015 /yr/pp), multilateral coordination is a
+precondition. The 5× spread in this single parameter changes whether
+the framework is a domestic legislation problem or an international
+treaty problem.
+
+**Crux 3. Reskilling effectiveness specific to AI-displacement
+workers.** Card-Kluve-Weber meta-analysis is for cyclical unemployment.
+If AI-specific reskilling is at the high end (15% earnings boost),
+Pillar 4 dominates. If at the low end (5%), Pillar 4 is insufficient
+and direct cash transfers (Package E) become more attractive.
+
+**Crux 4. Sovereign equity acquisition fraction.** At 10% (original
+framework), Pillar 1 effect on wealth concentration is small. At 20%
+(Q1 2026 baseline supports), Pillar 1 effect is meaningful but
+cost-of-equity premium is concerning. The right number depends on
+empirical cost-of-equity studies that haven't been done at this scale.
+
+**Crux 5. US-China cooperation propensity.** Below ~0.30, framework
+underperforms status quo on bilateral metrics. Above ~0.50, framework
+dominates. Current best estimate is hard to ground empirically because
+the framework has not been proposed.
+
+## 5.7 Open questions for next-phase work
+
+The simulations identify five open questions for Phase 5 (hostile
+critique) and beyond:
+
+1. **Pillars 2 and 3 specification verification.** These are currently
+   inferred from context. The actual whitepaper text should confirm or
+   correct them. Effect sizes for both pillars need recalibration.
+
+2. **Effect-size hostile critique.** Three named scholars (libertarian,
+   strategic-competition realist, heterodox economist) should attack
+   each effect-size estimate in `EMPIRICAL_ANALOGS.md`. Each refined
+   estimate moves the simulation results; some may move conclusions.
+
+3. **Three-tier extension.** The bilateral US-China model is insufficient
+   for the adoption-equilibrium claim across all country tiers. Phase 7
+   should extend to Frontier / Emerging / Developing.
+
+4. **Interaction effects.** The simulator currently treats lever effects
+   as additive. Some interactions matter (Pillar 1 × Pillar 6 substitutability;
+   Pillar 4 × Pillar 5 complementarity). Hypothesis 6 tests one such
+   interaction; others should follow.
+
+5. **Structural HANK rebuild.** The current reduced-form simulator is
+   appropriate for comparative deltas but not for level claims.
+   A future companion paper should rebuild on HARK or Sequence Space
+   Jacobian for the absolute trajectories.
+
+---
+
+# Part VI — Methodology Documentation
 
 ## How the evidence was produced
 
@@ -997,7 +1791,7 @@ These are honest limitations, documented in `paper/sections/10_limitations.md`.
 
 ---
 
-# Part V — Reproducibility Protocol
+# Part VII — Reproducibility Protocol
 
 ## Quick start
 
@@ -1051,7 +1845,7 @@ authority.
 
 ---
 
-# Part VI — The Open Decisions
+# Part VIII — The Open Decisions
 
 The questions above generate live decisions that the authors of this
 paper alone cannot resolve. We list them here, with the constituency
