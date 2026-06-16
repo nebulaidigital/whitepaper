@@ -1,10 +1,10 @@
 """Coalition formation stress test.
 
-Vary participating coalition from 30% to 100% of global AI compute.
-Identify minimum threshold for each lever to be welfare-positive.
+Vary participating coalition share from 0.3 to 1.0 and identify the
+breakeven threshold at which the package is welfare-positive vs.
+status quo.
 
-Per PREREGISTRATION.md §5 Hypothesis 10. Stub — full implementation depends
-on bilateral simulator (Phase 3).
+Per PREREGISTRATION.md §5 Hypothesis 10.
 """
 
 from __future__ import annotations
@@ -13,68 +13,83 @@ from dataclasses import dataclass
 
 import numpy as np
 
+from src.core import BilateralSimulator, SimulatorConfig
 from src.packages.base import PolicyPackage
 
 
 @dataclass(frozen=True)
 class CoalitionResult:
-    """Outcome of coalition-size sweep for a package.
-
-    Attributes
-    ----------
-    package_code : single-letter code of package under test
-    coalition_thresholds : array of compute-share values swept
-    welfare_deltas : array of welfare deltas at each coalition size
-    breakeven_threshold : smallest coalition size for which welfare ≥ 0
-        (NaN if package fails at all coalition sizes)
-    package_threshold_specified : the package's own claimed minimum coalition
-    threshold_consistency : whether actual breakeven is ≤ specified threshold
-    """
+    """Coalition-size sweep for a package."""
 
     package_code: str
     coalition_thresholds: np.ndarray
-    welfare_deltas: np.ndarray
-    breakeven_threshold: float
-    package_threshold_specified: float
-    threshold_consistency: bool
+    welfare_deltas: np.ndarray  # vs status quo at each coalition size
+    breakeven_threshold: float  # smallest coalition for which welfare ≥ 0
+    package_threshold_specified: float  # max coalition_threshold declared in package
+    threshold_consistency: bool  # actual breakeven ≤ specified threshold
+
+    def to_dict(self) -> dict:
+        return {
+            "package_code": self.package_code,
+            "breakeven_threshold": float(self.breakeven_threshold),
+            "package_threshold_specified": float(self.package_threshold_specified),
+            "threshold_consistency": bool(self.threshold_consistency),
+            "min_coalition_tested": float(self.coalition_thresholds.min()) if len(self.coalition_thresholds) > 0 else float("nan"),
+            "max_welfare_delta": float(self.welfare_deltas.max()) if len(self.welfare_deltas) > 0 else float("nan"),
+        }
 
 
 class CoalitionTest:
-    """Run coalition-size sweep for a package.
+    """Coalition-size sweep.
 
-    Plan (Phase 3+):
-    - Sweep coalition share from 0.3 to 1.0 in steps of 0.05
-    - At each share, run bilateral simulator with that fraction of global
-      compute participating in coordination-dependent levers
-    - Compute welfare delta vs. baseline at each coalition share
-    - Identify breakeven threshold
-    - Compare to package's specified coalition_threshold values
+    For each coalition share in [0.30, 1.00] step 0.05, run the package
+    through the simulator and compute welfare delta vs. status quo.
+    Then identify the smallest coalition that achieves welfare ≥ 0.
     """
 
-    def __init__(self, package: PolicyPackage) -> None:
+    def __init__(
+        self,
+        package: PolicyPackage,
+        welfare_metric: str = "us_median_income",
+    ) -> None:
         self.package = package
+        self.welfare_metric = welfare_metric
 
     def specified_threshold(self) -> float:
-        """Maximum coalition_threshold across coordination-dependent levers.
-
-        This is the minimum coalition the package itself claims is needed
-        for all coordination-dependent levers to function.
-        """
         coord_levers = self.package.coordination_dependent_levers()
         if not coord_levers:
             return 0.0
         return max(lev.coalition_threshold for lev in coord_levers)
 
-    def run(self) -> CoalitionResult:
-        """Execute coalition sweep.
+    def _final_metric(self, df) -> float:
+        return float(df[self.welfare_metric].iloc[-1])
 
-        Stub. Returns empty arrays until bilateral simulator is built (Phase 3).
-        """
+    def run(self, n_steps: int = 15) -> CoalitionResult:
+        sim = BilateralSimulator(config=SimulatorConfig())
+        baseline_welfare = self._final_metric(sim.run().to_dataframe())
+
+        thresholds = np.linspace(0.30, 1.00, n_steps)
+        deltas = np.zeros(n_steps)
+
+        for i, share in enumerate(thresholds):
+            df = sim.run(
+                package=self.package,
+                coalition_share=float(share),
+                cn_cooperation=0.5,
+            ).to_dataframe()
+            deltas[i] = self._final_metric(df) - baseline_welfare
+
+        # Smallest threshold where welfare delta ≥ 0
+        positive = thresholds[deltas >= 0]
+        breakeven = float(positive.min()) if len(positive) > 0 else float("nan")
+        specified = self.specified_threshold()
+        consistency = (not np.isnan(breakeven)) and (breakeven <= specified + 0.05)
+
         return CoalitionResult(
             package_code=self.package.code,
-            coalition_thresholds=np.array([]),
-            welfare_deltas=np.array([]),
-            breakeven_threshold=float("nan"),
-            package_threshold_specified=self.specified_threshold(),
-            threshold_consistency=False,
+            coalition_thresholds=thresholds,
+            welfare_deltas=deltas,
+            breakeven_threshold=breakeven,
+            package_threshold_specified=specified,
+            threshold_consistency=consistency,
         )

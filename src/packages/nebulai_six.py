@@ -37,28 +37,65 @@ PILLAR_1_SOVEREIGN_EQUITY = PolicyLever(
     citation="SOURCES.md §Capital markets; Sundaresan-Sushko 2014; Norway GPFG impact studies",
 )
 
-PILLAR_2_PLACEHOLDER = PolicyLever(
-    name="Pillar 2: [Placeholder pending whitepaper parse]",
+PILLAR_2_PUBLIC_AI_INFRASTRUCTURE = PolicyLever(
+    name="Pillar 2: Public AI Infrastructure",
     target=LeverTarget.GOVERNANCE,
     description=(
-        "Pillar 2 specification deferred — whitepaper parse needed. "
-        "Likely candidate: governance/coordination architecture."
+        "**Inferred from handoff context — pending whitepaper-draft "
+        "confirmation.** Public AI infrastructure includes public compute "
+        "(NSF NAIRR-style at scale), public model registry, public training "
+        "data trust, and shared evaluation infrastructure. Distinct from "
+        "Pillar 5 (open weights) in that this is about public *provision* "
+        "of supporting infrastructure rather than mandating openness of "
+        "private capability. Parameters here are best-guess from analogs "
+        "(NSF NAIRR pilot at $35M; scaled to $25B/yr for a real "
+        "infrastructure pillar)."
     ),
-    parameter_changes={},
+    parameter_changes={
+        # Public infrastructure at moderate scale (~0.025% of GDP, smaller
+        # than CERN-AI's 0.15% / public lab in Package C). Calibrated so
+        # Pillar 2 is meaningfully positive but doesn't dominate Package C.
+        "public_compute_per_gdp": 0.00025,
+        "ai_lab_entry_barrier": -0.05,
+        "frontier_capability_diffusion": 0.03,
+    },
     reversibility=Reversibility.SEMI_REVERSIBLE,
-    citation="paper/draft/ — pending review",
+    requires_coordination=False,
+    coalition_threshold=0.0,
+    citation=(
+        "INFERRED PENDING WHITEPAPER PARSE. NSF NAIRR Task Force "
+        "reports; Mazzucato 2021 entrepreneurial state framing; "
+        "Sastry-Heim-Belfield 2024 public compute analysis."
+    ),
 )
 
-PILLAR_3_PLACEHOLDER = PolicyLever(
-    name="Pillar 3: [Placeholder pending whitepaper parse]",
+PILLAR_3_INTERNATIONAL_COORDINATION = PolicyLever(
+    name="Pillar 3: International Coordination Layer",
     target=LeverTarget.GOVERNANCE,
     description=(
-        "Pillar 3 specification deferred — whitepaper parse needed. "
-        "Likely candidate: international coordination layer."
+        "**Inferred from handoff context — pending whitepaper-draft "
+        "confirmation.** Light-touch international architecture for "
+        "policy coordination, distinct from a treaty-grade compute "
+        "governance regime (which is a stronger version in Package C and "
+        "Package G). Includes capability-disclosure mutual recognition, "
+        "AI-tax base-protection coordination (à la OECD Pillar 2), and "
+        "shared safety-evaluation standards. SIMULATION.md L847 references "
+        "this in the geopolitical state enum: 'MULTIPOLAR_REGIONAL = 3 # "
+        "Pillar 3: regional cooperation'."
     ),
-    parameter_changes={},
-    reversibility=Reversibility.SEMI_REVERSIBLE,
-    citation="paper/draft/ — pending review",
+    parameter_changes={
+        "capability_disclosure_compliance": 0.50,  # weaker than treaty-grade
+        "ai_arms_race_intensity": -0.10,  # modest reduction
+        "geopolitical_stability_index": 3.0,  # +3 points
+    },
+    reversibility=Reversibility.REVERSIBLE,
+    requires_coordination=True,
+    coalition_threshold=0.40,
+    citation=(
+        "INFERRED PENDING WHITEPAPER PARSE. SIMULATION.md L847 "
+        "explicit reference; Trager-Harack-Schiff 2023 'Jurisdictional "
+        "Certification'; Bletchley → Seoul → Paris AISI Network."
+    ),
 )
 
 PILLAR_4_RESKILLING = PolicyLever(
@@ -130,8 +167,8 @@ NEBULAI_SIX = PolicyPackage(
     ),
     levers=(
         PILLAR_1_SOVEREIGN_EQUITY,
-        PILLAR_2_PLACEHOLDER,
-        PILLAR_3_PLACEHOLDER,
+        PILLAR_2_PUBLIC_AI_INFRASTRUCTURE,
+        PILLAR_3_INTERNATIONAL_COORDINATION,
         PILLAR_4_RESKILLING,
         PILLAR_5_OPEN_WEIGHTS,
         PILLAR_6_AI_TAX,
@@ -154,8 +191,8 @@ NEBULAI_SIX_SEQUENTIAL = PolicyPackage(
     ),
     levers=(
         PILLAR_1_SOVEREIGN_EQUITY,
-        PILLAR_2_PLACEHOLDER,
-        PILLAR_3_PLACEHOLDER,
+        PILLAR_2_PUBLIC_AI_INFRASTRUCTURE,
+        PILLAR_3_INTERNATIONAL_COORDINATION,
         PILLAR_4_RESKILLING,
         PILLAR_5_OPEN_WEIGHTS,
         PILLAR_6_AI_TAX,

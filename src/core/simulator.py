@@ -481,6 +481,44 @@ class BilateralSimulator:
                             labor_share[i] += extra * 0.02
                     audit.append((lever.name, "labor_productivity", "lift", extra))
 
+                elif key == "public_compute_per_gdp":
+                    # Public compute infrastructure → small GDP boost from
+                    # entry-barrier reduction + diffuse productivity gains
+                    boost = value * intensity * 0.5  # 0.5x leverage on GDP
+                    for i in range(len(years)):
+                        if package_active[i]:
+                            real_gdp[i] *= (1.0 + boost)
+                            markup[i] *= (1.0 - boost * 0.10)  # slight markup pressure
+                    audit.append((lever.name, "public_compute", "lift", boost))
+
+                elif key == "ai_lab_entry_barrier":
+                    # Lowered entry barriers → markup pressure, faster diffusion
+                    shift = value * intensity
+                    for i in range(len(years)):
+                        if package_active[i]:
+                            markup[i] *= (1.0 + shift * 0.20)  # negative shift → markup falls
+                    audit.append((lever.name, "entry_barrier", "shift", shift))
+
+                elif key == "frontier_capability_diffusion":
+                    # Capability diffusion → AI sector less concentrated;
+                    # markup pressure plus modest GDP boost
+                    diff = value * intensity
+                    for i in range(len(years)):
+                        if package_active[i]:
+                            markup[i] *= (1.0 - diff * 0.05)
+                            real_gdp[i] *= (1.0 + diff * 0.01)
+                    audit.append((lever.name, "diffusion", "lift", diff))
+
+                elif key == "capability_disclosure_compliance":
+                    # Pre-deployment evaluation requirements → small markup
+                    # compliance cost, modest stability gain (captured in
+                    # geopolitical layer)
+                    compliance = value * intensity
+                    for i in range(len(years)):
+                        if package_active[i]:
+                            markup[i] *= (1.0 + compliance * 0.01)  # small compliance cost
+                    audit.append((lever.name, "disclosure", "raise", compliance))
+
                 elif key == "ai_arms_race_intensity":
                     # Captured below in geopolitical layer
                     audit.append((lever.name, "arms_race", "shift", value * intensity))

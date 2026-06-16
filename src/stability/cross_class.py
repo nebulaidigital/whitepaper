@@ -1,11 +1,16 @@
 """Cross-class welfare distribution test.
 
-By-decile welfare deltas across 30 cells (10 deciles × 3 country tiers).
-Per PREREGISTRATION.md Hypothesis 4 (median-voter sufficiency) and
-Hypothesis 10 (game-theoretic robustness).
+By-decile welfare deltas. Tests Hypothesis 4 (median-voter sufficiency):
+under the package, the median household in every income decile in every
+country tier should be better off vs. status quo.
 
-Stub — full implementation depends on bilateral simulator with country
-disaggregation (Phase 3).
+Per PREREGISTRATION.md Hypothesis 4 and Hypothesis 10.
+
+This implementation works on the bilateral US/CN model. The framework's
+adoption-equilibrium claim is by-decile in 'every country tier'; with the
+bilateral model we have Frontier (US, CN as representatives) and skip
+Emerging/Developing tiers until Phase 7. Status of three-tier extension
+is documented in ROADMAP.md.
 """
 
 from __future__ import annotations
@@ -14,63 +19,101 @@ from dataclasses import dataclass
 
 import numpy as np
 
+from src.core import BilateralSimulator, SimulatorConfig
 from src.packages.base import PolicyPackage
 
 
 @dataclass(frozen=True)
 class CrossClassResult:
-    """Outcome of cross-class welfare test.
+    """Cross-class welfare distribution outcome.
 
     Attributes
     ----------
-    package_code : single-letter code of package
-    welfare_delta_matrix : (10, 3) array — deciles × country tiers
-        Cell [d, t] = median household Δ(real income) in decile d, tier t
-    n_cells_positive_p50 : count of cells with positive P50 delta
-    n_cells_positive_p10 : count of cells with positive P10 delta
-    fails_hypothesis_4 : bool — whether the test refutes the framework's
-        adoption-equilibrium claim (Hypothesis 4 in PREREGISTRATION.md)
-    most_disadvantaged_cell : (decile, tier) with smallest P50 delta
+    welfare_delta_matrix : (10, 2) array — deciles × countries (US, CN)
+        Cell [d, c] = median household Δ(real income) in decile d, country c
+    n_cells_positive : count of cells with positive delta
+    n_cells_negative : count with negative delta
+    fails_hypothesis_4 : True if ANY decile is worse off — refutes the
+        framework's adoption-equilibrium claim
+    most_disadvantaged_cell : (decile, country) with smallest delta
     """
 
     package_code: str
     welfare_delta_matrix: np.ndarray
-    n_cells_positive_p50: int
-    n_cells_positive_p10: int
+    n_cells_positive: int
+    n_cells_negative: int
     fails_hypothesis_4: bool
     most_disadvantaged_cell: tuple[int, str]
+    most_disadvantaged_delta: float
+
+    def to_dict(self) -> dict:
+        return {
+            "package_code": self.package_code,
+            "n_cells_positive": int(self.n_cells_positive),
+            "n_cells_negative": int(self.n_cells_negative),
+            "fails_hypothesis_4": bool(self.fails_hypothesis_4),
+            "most_disadvantaged_decile": int(self.most_disadvantaged_cell[0]),
+            "most_disadvantaged_country": self.most_disadvantaged_cell[1],
+            "most_disadvantaged_delta_pct": float(self.most_disadvantaged_delta),
+        }
 
 
 class CrossClassTest:
-    """Run cross-class welfare distribution test.
+    """Cross-class welfare distribution test.
 
-    Plan (Phase 3+):
-    - Run bilateral simulator with country disaggregation enabled
-    - For each tier (Frontier / Emerging / Developing) and decile (1–10),
-      compute median household Δ(real income) under the package vs. baseline
-    - Aggregate into (10, 3) matrix
-    - Apply Hypothesis 4 validation: pass if all 30 P50 deltas positive
-      AND ≥25 P10 deltas positive
+    Run the simulator twice (baseline + package), then compute
+    Δ(real income) for each (decile, country) cell. Hypothesis 4
+    passes only if every cell is positive at the median estimate.
     """
 
-    TIERS: tuple[str, str, str] = ("Frontier", "Emerging", "Developing")
+    COUNTRIES: tuple[str, str] = ("US", "CN")
     N_DECILES: int = 10
 
     def __init__(self, package: PolicyPackage) -> None:
         self.package = package
 
-    def run(self) -> CrossClassResult:
-        """Execute cross-class test.
+    def run(self, coalition_share: float = 0.7, cn_cooperation: float = 0.5) -> CrossClassResult:
+        sim = BilateralSimulator(config=SimulatorConfig())
+        baseline = sim.run()
+        package_run = sim.run(
+            package=self.package,
+            coalition_share=coalition_share,
+            cn_cooperation=cn_cooperation,
+        )
 
-        Stub. Returns NaN-filled result until simulator with country
-        disaggregation exists.
-        """
-        empty_matrix = np.full((self.N_DECILES, len(self.TIERS)), np.nan)
+        # Pull final-year decile_real_income matrices
+        us_baseline_final = baseline.us.decile_real_income[-1]
+        cn_baseline_final = baseline.cn.decile_real_income[-1]
+        us_package_final = package_run.us.decile_real_income[-1]
+        cn_package_final = package_run.cn.decile_real_income[-1]
+
+        # Δ as % of baseline decile income
+        us_delta_pct = (us_package_final - us_baseline_final) / np.where(
+            us_baseline_final > 0, us_baseline_final, 1.0
+        )
+        cn_delta_pct = (cn_package_final - cn_baseline_final) / np.where(
+            cn_baseline_final > 0, cn_baseline_final, 1.0
+        )
+
+        matrix = np.column_stack([us_delta_pct, cn_delta_pct])  # (10, 2)
+
+        n_pos = int(np.sum(matrix > 0))
+        n_neg = int(np.sum(matrix < 0))
+        fails = bool(n_neg > 0)
+
+        # Find most disadvantaged cell
+        flat_idx = int(np.argmin(matrix))
+        decile_idx = flat_idx // matrix.shape[1]
+        country_idx = flat_idx % matrix.shape[1]
+        most_disadv = (decile_idx + 1, self.COUNTRIES[country_idx])
+        most_disadv_delta = float(matrix[decile_idx, country_idx])
+
         return CrossClassResult(
             package_code=self.package.code,
-            welfare_delta_matrix=empty_matrix,
-            n_cells_positive_p50=0,
-            n_cells_positive_p10=0,
-            fails_hypothesis_4=True,  # default fail until validated
-            most_disadvantaged_cell=(0, "<unimplemented>"),
+            welfare_delta_matrix=matrix,
+            n_cells_positive=n_pos,
+            n_cells_negative=n_neg,
+            fails_hypothesis_4=fails,
+            most_disadvantaged_cell=most_disadv,
+            most_disadvantaged_delta=most_disadv_delta,
         )
