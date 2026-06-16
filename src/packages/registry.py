@@ -13,6 +13,7 @@ from src.packages.direct_redistribution import DIRECT_REDISTRIBUTION
 from src.packages.game_theoretic import GAME_THEORETIC
 from src.packages.korinek_scenario import KORINEK_SCENARIO
 from src.packages.nebulai_six import NEBULAI_SIX, NEBULAI_SIX_SEQUENTIAL
+from src.packages.recommended import RECOMMENDED
 from src.packages.status_quo import STATUS_QUO
 
 
@@ -25,6 +26,7 @@ ALL_PACKAGES: tuple[PolicyPackage, ...] = (
     BUILD_DIFFERENT,
     GAME_THEORETIC,
     KORINEK_SCENARIO,
+    RECOMMENDED,
 )
 
 
@@ -81,4 +83,5 @@ __all__ = [
     "BUILD_DIFFERENT",
     "GAME_THEORETIC",
     "KORINEK_SCENARIO",
+    "RECOMMENDED",
 ]

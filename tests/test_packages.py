@@ -27,10 +27,10 @@ from src.packages import (
 
 
 def test_all_packages_present():
-    """Eight packages: A-G plus H (Korinek-Scenario-Conditional, v2.0 addition)."""
-    assert len(ALL_PACKAGES) == 8
+    """Nine packages: A-H plus R (Recommended, v0.3 addition for validation)."""
+    assert len(ALL_PACKAGES) == 9
     codes = {pkg.code for pkg in ALL_PACKAGES}
-    assert codes == {"A", "B", "C", "D", "E", "F", "G", "H"}
+    assert codes == {"A", "B", "C", "D", "E", "F", "G", "H", "R"}
 
 
 def test_packages_by_code_lookup():
