@@ -1124,7 +1124,7 @@ disagree.
 
 ---
 
-*Nebulai Corp · Miami, FL · partnerships@nebulai.com*
+*Nebulai Corp · Miami, FL · info@nebulai.com*
 *Companion repository: github.com/nebulaidigital/whitepaper*
 *Working draft v0.2 · Q2 2026 · Comments welcome*
 

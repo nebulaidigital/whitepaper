@@ -246,4 +246,4 @@ Nebulai Corp pending publication.
 
 ## Contact
 
-For research collaboration inquiries: partnerships@nebulai.com
+For research collaboration inquiries: info@nebulai.com

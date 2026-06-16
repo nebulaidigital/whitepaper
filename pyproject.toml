@@ -2,7 +2,7 @@
 name = "nebulai-ai-economy"
 version = "0.1.0"
 description = "Macroeconomic simulation of the Participatory AI Economy framework"
-authors = [{ name = "Nebulai Corp", email = "partnerships@nebulai.com" }]
+authors = [{ name = "Nebulai Corp", email = "info@nebulai.com" }]
 license = { text = "MIT" }
 readme = "README.md"
 requires-python = ">=3.11"
