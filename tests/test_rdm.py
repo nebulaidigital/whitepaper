@@ -40,11 +40,11 @@ def test_run_rdm_for_single_package():
 
 def test_run_rdm_all_packages_smoke():
     res = run_rdm_for_all_packages(n_scenarios=20)
-    # 20 scenarios x 9 packages = 180 rows (Package R added v0.3 for validation)
-    assert len(res.experiments) == 180
-    assert len(res.outcomes) == 180
+    # 20 scenarios x 10 packages = 200 rows (Package R added v0.3 for validation)
+    assert len(res.experiments) == 200
+    assert len(res.outcomes) == 200
     # Every package code should appear
-    assert set(res.experiments["package"].unique()) == {"A", "B", "C", "D", "E", "F", "G", "H", "R"}
+    assert set(res.experiments["package"].unique()) == {"A", "B", "C", "D", "E", "F", "G", "H", "N", "R"}
 
 
 def test_policy_regret_well_formed():
@@ -54,7 +54,7 @@ def test_policy_regret_well_formed():
     assert "max_regret" in regret.columns
     assert "fraction_best" in regret.columns
     # All packages should be in the regret table
-    assert len(regret) == 9  # Nine packages compared (Package R added v0.3)
+    assert len(regret) == 10  # Ten packages compared (Package R added v0.3)
     # mean_regret >= 0 always
     assert (regret["mean_regret"] >= 0).all()
     # fraction_best should sum to ≥ 1 across packages — every scenario has at

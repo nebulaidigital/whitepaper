@@ -32,6 +32,7 @@ from src.packages.registry import (
     NEBULAI_SIX,
     NEBULAI_SIX_SEQUENTIAL,
     NEBULAI_SIX_VARIANTS,
+    NEBULAI_V2,
     PACKAGES_BY_CODE,
     RECOMMENDED,
     STATUS_QUO,
@@ -59,4 +60,5 @@ __all__ = [
     "GAME_THEORETIC",
     "KORINEK_SCENARIO",
     "RECOMMENDED",
+    "NEBULAI_V2",
 ]

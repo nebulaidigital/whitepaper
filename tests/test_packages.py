@@ -17,7 +17,9 @@ from src.packages import (
     KORINEK_SCENARIO,
     NEBULAI_SIX,
     NEBULAI_SIX_SEQUENTIAL,
+    NEBULAI_V2,
     PACKAGES_BY_CODE,
+    RECOMMENDED,
     STATUS_QUO,
     PolicyPackage,
     Reversibility,
@@ -27,10 +29,10 @@ from src.packages import (
 
 
 def test_all_packages_present():
-    """Nine packages: A-H plus R (Recommended, v0.3 addition for validation)."""
-    assert len(ALL_PACKAGES) == 9
+    """Ten packages: A-H plus R (Recommended) and N (Nebulai v2 best-of-all)."""
+    assert len(ALL_PACKAGES) == 10
     codes = {pkg.code for pkg in ALL_PACKAGES}
-    assert codes == {"A", "B", "C", "D", "E", "F", "G", "H", "R"}
+    assert codes == {"A", "B", "C", "D", "E", "F", "G", "H", "N", "R"}
 
 
 def test_packages_by_code_lookup():
@@ -42,6 +44,18 @@ def test_packages_by_code_lookup():
     assert get_package("F") is BUILD_DIFFERENT
     assert get_package("G") is GAME_THEORETIC
     assert get_package("H") is KORINEK_SCENARIO
+    assert get_package("N") is NEBULAI_V2
+    assert get_package("R") is RECOMMENDED
+
+
+def test_nebulai_v2_has_nine_pillars():
+    """Nebulai Framework v2 synthesizes best of all packages into nine pillars."""
+    assert len(NEBULAI_V2.levers) == 9
+    assert NEBULAI_V2.sequencing == "sequential"
+    # Nine pillar codes should be present
+    pillar_codes = ["N2-1", "N2-2", "N2-3", "N2-4", "N2-5", "N2-6", "N2-7", "N2-8", "N2-9"]
+    for code in pillar_codes:
+        assert any(code in lever.name for lever in NEBULAI_V2.levers)
 
 
 def test_korinek_scenario_has_seven_levers():
