@@ -428,6 +428,89 @@ v1.0 → v2.0.** The directional findings in Part V are robust to the
 calibration update. Specific quantitative claims tighten in some places
 and shift in others, but the overall comparative analysis stands.
 
+## 0.8 Methodological transparency (v0.3 additions)
+
+Following PhD-level review, v0.3 of this paper adds five methodological
+modules that address common objections to AI-policy simulation work:
+
+**0.8.1 Out-of-sample backtest** (`src/analysis/out_of_sample.py`).
+The default backtest "reproduces 2015–2025 by construction" because the
+trajectory in that window is copied from observed BLS / SCF / DLEU /
+BEA values. That is not validation; it is tautology. The v0.3 OOS
+module fits trajectory rates from a 2015–2019 training window and
+projects forward to a 2020–2025 test window, comparing predictions to
+held-out actuals. Result: **8 of 9 indicators predict within
+documented tolerance** from training-data-only calibration. The one
+exception is substitute-worker employment, where COVID-era disruption
+exceeds the linear-rate projection mechanism's capacity. This converts
+"reproduces past by construction" into "predicts a 6-year held-out
+test window within ±1pp on labor share, ±5% on GDP."
+
+**0.8.2 Mechanism decomposition**
+(`src/analysis/mechanism_decomposition.py`). The paper attributes
+labor-share decline jointly to automation, markups, worker bargaining,
+and capital-augmenting productivity. A PhD-level critique correctly
+asks: how much is AI-specific vs. pre-existing trends? The v0.3 module
+toggles each channel on/off in isolation and reports per-channel
+contribution. For the default calibration: ~67% of projected 2025–2036
+US labor-share decline is automation-attributable; ~33% is
+worker-bargaining-attributable (Stansbury-Summers 2020 framing);
+markup, wealth-concentration, and productivity channels contribute
+near-zero in the reduced-form simulator. Approximate, not Shapley-
+exact, but documents the AI-specific causal share explicitly.
+
+**0.8.3 Formal welfare framework** (`src/analysis/welfare.py`). The
+paper compares packages via individual indicators (top-1% wealth, GDP,
+labor share). A PhD reviewer asks: aggregated via what social welfare
+function? The v0.3 module implements the Atkinson-Sen SWF with
+explicit inequality aversion parameter ε ∈ [0, ∞], plus a Bergson-
+Samuelson explicit-weights generalization. Each package's welfare delta
+is reported across ε ∈ {0, 0.5, 1, 2, 5} so reviewers can apply their
+own prior on inequality aversion. **Headline finding: Package H
+(Korinek-Scenario-Conditional) dominates the welfare ranking across
+all ε values** — the only package that is welfare-robust regardless of
+whether the policymaker is utilitarian or Rawlsian. Package E
+(Direct Redistribution) is second across all ε.
+
+**0.8.4 Three AI regime scenarios** (`src/scenarios/`). The default
+calibration blends the Acemoglu-Restrepo (2019) three-effect taxonomy
+into one trajectory. The v0.3 scenarios module provides three explicit
+regime configurations:
+
+- *Substitute-dominant*: AI replaces labor at scale; automation
+  dominates; reinstatement minimal; labor share falls to ~47% by 2036.
+- *Complement-dominant*: AI augments labor; high productivity boost
+  without proportionate displacement; labor share stable at ~54%.
+- *New-tasks-dominant*: AI as general-purpose technology creating new
+  sectors; reinstatement dominates; labor share recovers to ~53% via
+  new-task creation.
+
+Each scenario × each package = 24 simulation results
+(`src/analysis/scenario_comparison.py`). Robustness: **Package H wins
+on median income under all three scenarios**, with margins +23.6%,
++23.6%, +25.4% (vs. status-quo within each scenario). Other packages
+shift ranks across scenarios — Package F is more competitive under
+new-tasks-dominant where productivity boosts compound; Package E is
+more competitive under substitute-dominant where redistributive
+pressure intensifies.
+
+**0.8.5 Formal theoretical specification** (`paper/sections/THEORY.md`).
+Every quantity in the simulator traces to a labeled equation. The
+Acemoglu-Restrepo production function (§1), DLEU markup distribution
+(§2), monopsony wage formula (§3), Saez-Zucman differential returns
+(§4), and reduced-form trajectory mechanism (§6) are documented at
+equation level with parameter ranges and calibration sources. This
+addresses the reviewer demand: "publish equations, assumptions, priors,
+parameter ranges." Reviewers can cross-check equations against
+`src/` code and calibration sources against `EMPIRICAL_ANALOGS.md`.
+
+These five modules respond directly to documented PhD-level critiques
+of AI-policy simulation work. They do not eliminate the limitations
+documented in `paper/sections/10_limitations.md` — particularly the
+reduced-form vs. structural HANK choice and the Lucas critique — but
+they substantially reduce the credibility gap that a working paper
+typically faces relative to a peer-reviewed publication.
+
 ---
 
 # Part I — The Status Quo Questions

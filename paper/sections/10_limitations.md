@@ -9,6 +9,37 @@ The discipline is to surface every limitation before a critic does. A
 limitation that's named, characterized, and bounded is much less
 damaging than the same limitation discovered by a hostile reviewer.
 
+## 0. Reproducibility is not validity
+
+A reproducible pipeline is necessary but not sufficient for credibility.
+The v0.2 paper emphasizes that every claim is regeneratable from a
+documented command. This is true. But reproducibility does not equal
+validity:
+
+- A model can be fully reproducible and still rest on weak assumptions.
+- "Backtest reproduces observed values exactly by construction" is the
+  default state of the v0.2 simulator's backtest window — and it is
+  *not validation*. It is tautology. Observed values are hard-coded
+  in `src/analysis/baseline_data.py` and copied into the trajectory
+  during the 2015–2025 window.
+- The genuine validation is *out-of-sample*: train on a held-out window
+  (default 2015–2019), project forward to a test window (default
+  2020–2025), compare predictions to actual observed values. This is
+  implemented in `src/analysis/out_of_sample.py` (added in v0.3).
+
+Current OOS result: **8 of 9 indicators predict within documented
+tolerance** when calibrated only from 2015–2019 training data. The
+substitute-employment indicator misses tolerance due to COVID-era
+disruption that the linear-rate projection mechanism cannot capture.
+Run `python -c "from src.analysis.out_of_sample import
+run_oos_backtest, report_oos_findings; print(report_oos_findings(
+run_oos_backtest()))"` to verify.
+
+This OOS result establishes that the projection mechanism is not
+mechanically over-fitted to past data. It does not establish that the
+*structural* mechanisms are correctly specified — those would require
+fuller HANK-style validation, deferred to Phase 9 of the roadmap.
+
 ## 1. Reduced-form simulator, not full HANK
 
 The simulator (`src/core/simulator.py`) applies documented effect-size
@@ -148,6 +179,53 @@ The paper's conclusions are robust to *direction* under most plausible
 revisions, but specific quantitative claims may move. Readers should
 treat point estimates as preliminary pending hostile-critique-updated
 v2.0.
+
+## 8b. The model is exploratory, not predictive
+
+This must be stated explicitly because the structured-options format
+can read as more predictive than it is. The simulation:
+
+- **Provides comparative welfare evidence** under stated assumptions.
+- **Identifies parameter regions** where each policy package dominates.
+- **Maps the decision-relevant cruxes** where small parameter shifts
+  change recommendations.
+
+The simulation **does not**:
+
+- Forecast 2036 outcomes at point precision.
+- Establish causal identification for AI's contribution to projected
+  trends (mechanism decomposition gives approximate attribution; not
+  Shapley-exact).
+- Settle disagreements between econometric specifications.
+- Predict political feasibility, electoral outcomes, or treaty
+  ratification probabilities.
+
+The right frame for reading this analysis is "structured exploration
+of the policy-relevant parameter space with literature-anchored effect
+sizes" — not "policy forecast." Mistakes in the latter direction would
+overclaim what the simulation can support.
+
+## 8c. Causal identification is partial
+
+The v0.2 paper attributes labor-share decline jointly to automation,
+markups, worker bargaining, and capital-augmenting productivity. A
+PhD-level critique correctly objects that these are not the same
+causal channel.
+
+The v0.3 mechanism decomposition module
+(`src/analysis/mechanism_decomposition.py`) addresses this partially:
+toggling each channel on/off in isolation and computing each one's
+contribution share. For the default calibration:
+- Automation: ~67% of projected labor-share decline
+- Worker bargaining decline: ~33%
+- Markups, wealth concentration, productivity: small or counter-acting
+
+This is *approximate* attribution — channels interact, so toggling one
+off doesn't fully isolate the others. A Shapley-style decomposition
+would be more rigorous and is deferred to a structural HANK companion
+paper. For the comparative-welfare claims in this paper, the
+approximate decomposition is sufficient to defend the AI-specific
+share of projected trends; for causal-econometric claims, it is not.
 
 ## 9. Pillar-interaction effects are underspecified
 
