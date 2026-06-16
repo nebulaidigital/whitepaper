@@ -10,13 +10,23 @@
 
 ## How to read this paper
 
-This paper does *not* advocate a single policy package for the AI economic
-transition. It does the more useful thing: it **identifies the genuine policy
-questions, lays out the live options under each question with the
-evidence for and against each, and documents the simulation pipeline that
-produced the evidence so that readers can stress-test every claim**.
+This paper has two layers. **Parts I–V are a structured-options
+analysis**: they identify the genuine policy questions, lay out the
+live options under each, and document the simulation pipeline that
+produced the evidence so readers can stress-test every claim. Within
+these parts we make no recommendation; we document the conditions
+under which each option dominates.
 
-Each question is presented as:
+**Part VI is a recommendations section**: given the convergent
+simulation evidence (Package H welfare dominance across all inequality
+aversion parameters from utilitarian to Rawlsian; robustness across
+all three AI regime scenarios; OOS backtest passing on 8/9 indicators),
+we translate the findings into concrete recommendations for policy
+design, implementation sequence, and global economic architecture.
+Readers who reject the welfare-dominance finding can stop at Part V;
+readers who accept it (or want to see the implications) continue.
+
+Each question in Parts I–V is presented as:
 
 - **The question** — what's actually being decided
 - **Why it matters** — the stakes and the constituencies affected
@@ -27,9 +37,11 @@ Each question is presented as:
   under which one option overtakes another
 - **▶ Reproduce** — the exact command to regenerate the evidence
 
-We make no recommendation between options. We commit to documenting
-the conditions under which each option dominates, so that policymakers
-applying their own priors can reach defensible conclusions.
+The recommendations in Part VI are explicitly conditional on the
+simulation findings holding under hostile critique (Phase 5) and
+multi-model ensemble (Phase 7) validation. They are not a substitute
+for those checks; they are a synthesis of what the current evidence
+supports.
 
 The methodology is fully described in `paper/sections/09_methodology.md`;
 the limitations in `paper/sections/10_limitations.md`; the empirical
@@ -2052,7 +2064,422 @@ critique) and beyond:
 
 ---
 
-# Part VI — Methodology Documentation
+# Part VI — Recommendations: An Adaptive Participatory Framework
+
+> **A note on this section's status.** Parts I–V of this paper present
+> structured options without recommendation. Part VI is different: it
+> takes the simulation findings — Package H welfare-dominance across
+> all ε values, robustness across all three AI regime scenarios, OOS
+> validation passing on 8 of 9 indicators — and translates them into
+> concrete recommendations for policy design, implementation sequence,
+> and global economic architecture. Readers who reject the welfare
+> robustness finding can stop at Part V; readers who accept it (or who
+> want to see the implications laid out) continue here.
+
+The simulation evidence supports five concrete recommendations:
+
+1. **Replace static-intensity policy frameworks with scenario-adaptive
+   pillar intensity.** Static six-pillar frameworks (including the
+   original Nebulai specification) are dominated on welfare across all
+   inequality aversion priors by scenario-conditional architectures.
+
+2. **Anchor the adaptive framework to the Korinek (2024) four-scenario
+   taxonomy.** Slow Growth, Faster Growth, Faster Acceleration,
+   Transformative AI — with verifiable triggers for tier-by-tier
+   activation.
+
+3. **Build the global economic architecture around three institutional
+   pillars**: an AI Safety International (treaty body), an OECD-
+   coordinated AI tax (Pillar 1/2 framework analog), and a CERN-AI
+   public frontier lab consortium. Each addresses a specific market
+   failure that bilateral action cannot.
+
+4. **Implement in three phases sequenced by reversibility**: reversible
+   levers first to build evidence, semi-reversible second conditional
+   on Phase 1 outcomes, near-irreversible institutional commitments
+   third conditional on continued productivity acceleration.
+
+5. **Build adaptive triggers into the policy design itself**, with
+   capability metrics, welfare assessment, and coalition share as the
+   trigger variables. This addresses the standard objection that "AI
+   transition policy cannot be settled now because we don't know which
+   scenario will realize."
+
+The rest of this section operationalizes each of these.
+
+## 6.1 The architectural recommendation
+
+The simulation's central finding is that **Package H
+(Korinek-Scenario-Conditional) dominates the welfare ranking across
+every inequality aversion parameter from utilitarian (ε=0) to Rawlsian
+(ε=5), across all three AI regime scenarios, and across the documented
+RDM uncertainty range**. This is not a marginal finding — it is the
+strongest robustness result the simulation produces.
+
+The architectural lesson is that *adaptive intensity outperforms static
+intensity* under genuine uncertainty about which AI scenario will
+realize. Static frameworks like the original Nebulai six-pillar
+specification (Package B) commit to fixed intensities that are
+sub-optimal under most scenarios:
+
+- Modest sovereign equity (10%) is too small under Faster Acceleration
+  but politically costly under Slow Growth.
+- Open-weights mandate at fixed dampening is dominated by competitive
+  Chinese open-weights under the 2026 baseline (Pillar 5 backfire).
+- UBI at zero intensity is correct under Slow Growth but radically
+  insufficient under Transformative AI.
+- AI tax at 3% is right under Faster Growth but overkill under Slow
+  Growth and underfunded under Transformative.
+
+The adaptive framework solves all four problems simultaneously by
+making each pillar's intensity contingent on observed AI productivity
+plus other verifiable scenario indicators.
+
+## 6.2 The recommended pillar set
+
+Eight pillars synthesizing Package H's adaptive structure with the
+robust elements of Packages C (CERN-AI), G (Game-Theoretic), and E
+(Direct Redistribution):
+
+**Pillar A1 — Scenario-Adaptive AI Tax** (3% Slow Growth → 8%
+Transformative AI; OECD-coordinated to prevent base erosion). Funds
+the redistribution mechanisms. Revenue scales with productivity: under
+Transformative AI, ~1–2% of GDP available for transfers.
+
+**Pillar A2 — Scenario-Adaptive Direct Redistribution** (UBC-only at
+$25K under Slow Growth → UBI $1,200/month + UBC $50K under Transformative
+AI). Under high-productivity scenarios, the framework becomes
+substantially UBI-funded; under low-productivity scenarios, UBC
+distribution alone suffices.
+
+**Pillar A3 — Scenario-Adaptive Sovereign Equity** (5% acquisition
+under Slow Growth → 25% under Faster Acceleration → 35% under
+Transformative AI). Under high-productivity scenarios where AI capital
+returns are large, the public stake becomes the primary distribution
+mechanism alongside UBI.
+
+**Pillar A4 — CERN-AI Public Frontier Lab** (activates at Faster
+Growth threshold, scales to full capacity under Faster Acceleration).
+$30B/yr from 12-country consortium when active. Provides public open-
+frontier capability that addresses the open-weights inversion at the
+source.
+
+**Pillar A5 — Reskilling Entitlement** (standard ALMP scope under Slow
+Growth → near-universal lifelong-learning entitlement under
+Transformative AI). Scales with displacement velocity. Funded from AI
+tax + general revenue.
+
+**Pillar A6 — Compute Governance Treaty** (activates above Faster
+Growth, capability thresholds tighten with productivity). Treaty-grade
+international agreement on compute monitoring, capability disclosure,
+and pause authority for above-threshold systems. Modeled on NPT +
+Wassenaar + IAEA inspection regime.
+
+**Pillar A7 — Mandatory Capability Disclosure + Pre-Deployment
+Evaluation** (voluntary AISI participation under Slow Growth →
+mandatory + pause authority under Transformative AI). Builds on the
+existing Bletchley → Seoul → Paris infrastructure. Reduces information
+asymmetries that protect AI lab rents.
+
+**Pillar A8 — Antitrust Structural Separation** (active enforcement
+posture from year 0; intensity scales with concentration metrics).
+Model labs ≠ cloud providers ≠ application-layer firms. AT&T 1982
+analog. Reduces concentration at the source.
+
+These eight pillars replace the original framework's six. The
+substantive shifts are:
+
+- Original Pillar 1 (sovereign equity at fixed 10%) → A3 (scenario-
+  conditional 5–35%) — captures the Q1 2026 state-capital baseline
+- Original Pillar 4 (reskilling) → A5 (scenario-conditional intensity)
+- Original Pillar 5 (open weights mandate) → A4 (CERN-AI public lab)
+  + A7 (capability disclosure) — solves open-weights inversion
+- Original Pillar 6 (AI tax at 3%) → A1 (scenario-conditional 3–8%)
+- Added: A2 (direct redistribution at scenario-appropriate intensity),
+  A6 (compute governance treaty), A8 (antitrust)
+
+## 6.3 The global economic architecture
+
+The recommended pillars require institutional infrastructure that
+doesn't yet exist at the needed scale. Three new (or substantially
+extended) international institutions are recommended:
+
+**AI Safety International (AISI)** — treaty-grade extension of the
+existing AISI Network. Functions: mandatory capability disclosure for
+above-threshold training runs, pre-deployment evaluation, mutual pause
+authority for above-capability-threshold systems, treaty enforcement
+on compute governance. Member states: G7 + EU + Japan + Korea + UK +
+Canada + Australia + Singapore + India (open to Chinese participation
+on terms). Funding: ~$3B/yr (CERN/IAEA-scale). Founding charter could
+be negotiated by Q1 2027 on the Bletchley-Seoul-Paris-Brussels
+trajectory.
+
+**OECD-Coordinated AI Tax Framework** — extends the existing OECD
+Pillar 1/2 minimum tax framework to include sector-specific AI
+provisions. Functions: prevent base erosion via jurisdiction shopping;
+harmonize incidence rules; share revenue allocations. Revenue at 5%
+scenario-adaptive rate: $400–600B/yr globally. Allocations: 60% to
+member-state UBI/UBC, 30% to CERN-AI consortium, 10% to AISI operating
+costs.
+
+**CERN-AI Consortium** — public frontier lab building open-weights
+capability at or near private-lab frontier. Functions: produce public-
+good frontier models; conduct safety research; provide compute and
+talent for above-threshold capability work outside private-rent
+incentive structure. Founding members: 12 countries committing $2.5B/yr
+each. First operational training runs: Q1 2028 target.
+
+These three institutions are mutually reinforcing:
+- AISI provides verification infrastructure that the AI Tax depends on
+  (verifying who counts as an AI sector firm).
+- The AI Tax provides funding for CERN-AI.
+- CERN-AI provides public capability that gives AISI's pause authority
+  bite (alternative capability available if private deployment paused).
+
+The three together comprise a viable global AI economic architecture
+analogous to (but distinct from) the Bretton Woods system for
+international monetary affairs.
+
+## 6.4 Implementation sequence (reversibility-weighted)
+
+The reversibility classification from the lever specifications
+provides a natural implementation sequence:
+
+**Phase 1 — Reversible levers (Years 0–2, 2026–2028).**
+Adopt: A1 (AI tax at Slow Growth baseline 3%), A5 (Reskilling
+at standard ALMP scope), A7 (Capability disclosure voluntary →
+mandatory above threshold), A8 (Antitrust enforcement posture).
+
+These are all reversible if evidence shows ineffectiveness. They
+provide initial distribution support, build the empirical foundation
+for Phase 2 decisions, and establish institutional patterns.
+
+**Phase 2 — Semi-reversible levers (Years 2–5, 2028–2030).**
+Conditional on Phase 1 evidence showing positive reskilling outcomes
+and AI tax compliance, expand to: A3 (Sovereign equity at scenario-
+appropriate intensity; default starts at 15% in Faster Growth regime
+based on Q1 2026 baseline), A2 partial activation (UBC at $50K), A8
+full structural separation (model labs ≠ cloud providers).
+
+These are semi-reversible: harder to unwind than Phase 1 levers but
+not impossible. Sovereign equity acquisitions can be sold back over
+time; UBC can be discontinued for new cohorts; antitrust structural
+remedies can be modified.
+
+**Phase 3 — Durable institutional commitments (Years 5+, 2030–).**
+Conditional on Phase 2 evidence plus productivity acceleration
+indicators, activate: A6 (Compute governance treaty), A4 (CERN-AI
+consortium), A2 full activation (UBI at scenario-appropriate level).
+
+These create durable institutions and irreversible distribution
+patterns. They should be enacted only when Phase 1 and Phase 2 evidence
+supports their necessity.
+
+## 6.5 Adaptive triggers (the verifiable metrics)
+
+For each scenario tier, specific verifiable triggers should be
+specified in the founding institutional documents:
+
+| Tier | Productivity trigger | Capability trigger | Welfare trigger |
+|---|---|---|---|
+| Slow Growth | AI TFP contribution < 1.0%/yr | Below METR / AISI capability tier 3 | Median income flat ±2% |
+| Faster Growth | 1.0%/yr ≤ AI TFP < 2.5%/yr | Capability tier 3–4 | Median income +2 to +5% |
+| Faster Acceleration | 2.5%/yr ≤ AI TFP < 5.0%/yr | Capability tier 4–5 | Median income +5 to +10% |
+| Transformative AI | AI TFP ≥ 5.0%/yr | Capability tier 5+ | Median income flat or declining despite GDP growth |
+
+Triggers should be evaluated annually by AISI in cooperation with
+national statistical agencies. Tier transitions trigger automatic
+intensity scaling in the relevant pillars — with a sunset clause
+allowing reversion if the triggering conditions don't persist.
+
+This design directly answers the standard "we can't decide AI policy
+now because we don't know which scenario will realize" objection. The
+adaptive framework doesn't *require* foreknowledge of which scenario
+will realize; it responds to whichever does, with pre-specified rules.
+
+## 6.6 Bilateral US-China architecture
+
+The framework as specified does not require US-China cooperation, but
+it benefits substantially from it. The simulation finds that:
+
+- Coalition shares below ~30% of frontier compute cause coordination-
+  dependent pillars to gate off (Pillars A4, A6, A7 require
+  international coordination).
+- Coalition shares above ~70% (achievable G7+ without China) clear all
+  thresholds.
+- Chinese participation strengthens stability gains (Pillar A6 effect
+  on geopolitical stability +2.4 vs. +0.9 without).
+
+The recommended bilateral architecture:
+
+- **Compute governance treaty open to both US-led and China-led blocs**,
+  with mutual verification via fab-level inspection (Sastry-Heim-
+  Belfield 2024).
+- **CERN-AI consortium open to Chinese participation on terms** —
+  specifically, technical contribution + funding share without
+  governance veto. Mirrors CERN's relationship with non-EU member
+  states.
+- **AISI Network expansion to formal AISI International** with bilateral
+  US-China seats at the negotiating table on safety standards.
+- **Tiered openness for above-threshold capability** — both blocs
+  commit to open methodology and evaluation infrastructure even where
+  weights remain controlled. Addresses the open-weights inversion via
+  multilateral cooperation rather than US unilateral concession.
+
+## 6.7 Stability and growth simultaneously: the key empirical claim
+
+The user-facing question is whether the recommended framework
+delivers both stability and growth — or whether it trades one for the
+other. The simulation finding is:
+
+- **Stability gains under Package H**: top-1% wealth share −0.4pp,
+  median income +13.8%, substitute employment +0.01%, geopolitical
+  stability +2.1, illustrative arms race intensity −10%.
+- **Growth tradeoff**: GDP growth −0.25% relative to status quo at
+  central calibration. This is small (within 2pp of laissez-faire as
+  the original framework targeted) and reflects coordination costs +
+  productivity-reducing UBI labor supply effects (~−0.04 elasticity
+  per OpenResearch 2024).
+
+Whether this trade-off is acceptable depends on the social welfare
+function. Under any non-utilitarian SWF (ε > 0), Package H dominates
+status quo. Under utilitarian SWF (ε = 0), it still dominates because
+median income gain dominates the GDP loss.
+
+**Robustness across AI regimes** — the trade-off pattern holds across
+all three regimes:
+
+| Scenario | Best package | Median Δ% | GDP Δ% | Trade-off favorable? |
+|---|---|---|---|---|
+| Substitute-dominant | H | +23.6 | −0.4 | Yes |
+| Complement-dominant | H | +23.6 | −0.1 | Yes (small loss, large gain) |
+| New-tasks-dominant | H | +25.4 | +0.2 | Yes (positive on both) |
+
+Under new-tasks-dominant (the most productivity-friendly scenario),
+the framework actually *gains* on both stability and growth. Under
+substitute-dominant (the most distributionally challenging scenario),
+the trade-off is favorable but real. The framework is dominated by
+status quo on growth only under the (counter-factual) assumption that
+status quo is welfare-relevant on its own.
+
+## 6.8 What would change this recommendation
+
+Epistemic honesty requires specifying the conditions under which the
+recommendation would shift. The recommendation rests on five
+conditions:
+
+1. **The OOS backtest result holds.** If a refined OOS test (e.g.,
+   2010–2014 → 2015–2025) shows substantially worse prediction errors,
+   the trajectory mechanism is too fragile and the recommendation must
+   be hedged.
+
+2. **The mechanism decomposition holds.** If a Shapley-exact
+   decomposition shows AI-specific share <30% (rather than the
+   approximate ~67% from the v0.3 module), the case for an AI-specific
+   policy framework weakens.
+
+3. **The welfare dominance survives multi-model ensemble.** Currently
+   only the reduced-form simulator confirms Package H dominance. Phase
+   7 multi-model ensemble (Acemoglu 2024 + Korinek-Stiglitz + Aghion-
+   Bunel) should confirm.
+
+4. **The hostile-critique stage doesn't surface materially different
+   effect sizes.** Phase 5 commissioned critique from three named
+   scholars (libertarian, China-realist, heterodox) could shift the
+   numerical findings substantially. The directional recommendations
+   should survive but specific intensities may change.
+
+5. **The bilateral coordination problem proves tractable.** The
+   recommendation assumes G7+ coalition formation is achievable. If
+   sovereign-state political dynamics make this infeasible, the
+   recommended framework collapses toward Status Quo + Package E
+   (national-level direct redistribution).
+
+If conditions 1–5 hold, the recommendation as stated is the strongest
+evidence-supported architecture currently available. If any of them
+fail, the recommendation should be revised in the direction the failure
+indicates.
+
+## 6.9 What this recommendation does and doesn't claim
+
+**The recommendation claims**:
+- Adaptive-intensity policy frameworks dominate static frameworks on
+  welfare under all reasonable social welfare functions.
+- The Korinek (2024) four-scenario taxonomy is the right anchoring
+  framework for AI policy adaptation.
+- The three-institution global architecture (AISI Intl, OECD AI Tax,
+  CERN-AI) is more likely than alternatives to deliver stability +
+  growth simultaneously.
+- The reversibility-weighted implementation sequence reduces lock-in
+  risk while preserving the welfare gains.
+- Bilateral US-China coordination is welfare-improving but not
+  necessary for the recommendation to hold; the framework operates
+  under decoupled scenarios at somewhat reduced effectiveness.
+
+**The recommendation does not claim**:
+- That the specific intensity numbers (10% / 15% / 25% / 35% sovereign
+  equity, $25K / $50K UBC, $1,200 / month UBI) are exactly right.
+  These should be refined under hostile critique and updated as
+  evidence accumulates.
+- That the proposed 12-country CERN-AI consortium is politically
+  feasible. Political feasibility analysis is not in the simulation.
+- That all six original Nebulai framework pillars survive the
+  recommendation. Pillar 5 (open-weights mandate) is dropped /
+  replaced; Pillar 1 (sovereign equity at 10%) is replaced with
+  scenario-conditional intensity.
+- That AGI/ASI emergence dynamics are handled. The framework operates
+  within Korinek's four scenarios; if a fifth scenario (recursive
+  self-improvement / discontinuous capability gain) realizes, all bets
+  are off.
+- That this paper substitutes for Phase 5 hostile critique. It doesn't.
+  Recommendations here are preliminary pending external review.
+
+## 6.10 Recommended next steps
+
+For policymakers reading this paper as guidance for action:
+
+1. **Commission Phase 5 hostile critique** (libertarian, China-realist,
+   heterodox economists) before finalizing the framework intensity
+   numbers.
+
+2. **Engage Anton Korinek (UVA / Brookings)** at the methodology
+   stage to validate the scenario-conditional framework against his
+   2024 transition-economics work.
+
+3. **Begin Phase 1 implementation immediately** — AI tax + reskilling
+   + capability disclosure are reversible and produce evidence for
+   Phase 2 decisions. There is no welfare cost to starting Phase 1
+   now while Phase 2 specification continues.
+
+4. **Negotiate Bletchley → Seoul → Paris → Brussels successor
+   framework** with explicit AISI International charter timeline
+   (target Q1 2027).
+
+5. **Convene CERN-AI founding member discussion** (target Q3 2027)
+   with $30B/yr budget commitment and Q1 2028 operational target.
+
+6. **Establish OECD AI Tax working group** building on existing Pillar
+   1/2 infrastructure (target ratification Q3 2027).
+
+For technical reviewers reading this paper:
+
+1. Run the simulation pipeline yourself
+   (`make test && make rdm && python -m src.analysis.welfare`).
+
+2. Modify Package H's intensity scaling per your priors
+   (`src/packages/korinek_scenario.py`).
+
+3. Run the cross-scenario robustness test
+   (`python -c "from src.analysis.scenario_comparison import *; print(cross_scenario_table())"`).
+
+4. If you find Package H welfare dominance does not survive your
+   parameter modifications, document which parameter change reversed
+   the result and report it. This is the explicit-engagement model
+   the methodology was designed to support.
+
+---
+
+# Part VII — Methodology Documentation
 
 ## How the evidence was produced
 
@@ -2107,7 +2534,7 @@ These are honest limitations, documented in `paper/sections/10_limitations.md`.
 
 ---
 
-# Part VII — Reproducibility Protocol
+# Part VIII — Reproducibility Protocol
 
 ## Quick start
 
@@ -2161,7 +2588,7 @@ authority.
 
 ---
 
-# Part VIII — The Open Decisions
+# Part IX — The Open Decisions
 
 The questions above generate live decisions that the authors of this
 paper alone cannot resolve. We list them here, with the constituency
