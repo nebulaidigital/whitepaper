@@ -48,14 +48,18 @@ ema_logging.log_to_stderr(logging.WARNING)
 UNCERTAINTY_RANGES: dict[str, tuple[float, float]] = {
     # σ ∈ [1.1, 2.0] — Acemoglu-Restrepo 2022 Table 3
     "sigma_task_elasticity": (1.1, 2.0),
-    # Capital flight ε ∈ [0.003, 0.015] — Bach 2014, Brülhart 2022
-    "capital_flight_elasticity": (0.003, 0.015),
-    # Reskilling earnings effect ∈ [0.05, 0.20] — Card-Kluve-Weber 2018
+    # Capital flight ε ∈ [0.002, 0.012] — v2.0 Jakobsen 2020 + Saez-Zucman 2022;
+    # was [0.003, 0.015] in v1.0 (Bach 2014 + Brülhart 2022).
+    "capital_flight_elasticity": (0.002, 0.012),
+    # Reskilling earnings effect ∈ [0.05, 0.20] — CKW 2018 + Brookings Hamilton 2024
     "reskilling_earnings_effect": (0.05, 0.20),
-    # Open-weights markup dampening ∈ [0.10, 0.50] — inferred from OSS economics
-    "open_weights_markup_dampening": (0.10, 0.50),
-    # AI productivity growth ∈ [0.005, 0.05] — Acemoglu 2024 / Goldman 2023
-    "ai_productivity_growth": (0.005, 0.050),
+    # Open-weights markup dampening ∈ [0.05, 0.35] — v2.0 post-DeepSeek
+    # supersedes [0.10, 0.50] of v1.0 (DeepSeek absorbed the high-end effect
+    # endogenously; remaining policy-induced dampening is smaller).
+    "open_weights_markup_dampening": (0.05, 0.35),
+    # AI productivity growth ∈ [0.005, 0.055] — v2.0 Cazzaniga IMF 2024;
+    # was [0.005, 0.05] in v1.0.
+    "ai_productivity_growth": (0.005, 0.055),
     # US-China cooperation propensity ∈ [0, 1] — subjective prior; declared
     "cn_cooperation_propensity": (0.05, 0.95),
     # Coalition share ∈ [0.30, 1.00] — coalition formation test

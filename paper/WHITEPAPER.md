@@ -311,6 +311,123 @@ The framework's original specification was correct for its 2024
 context. The questions in Part II reflect how these shifts change the
 right answer.
 
+## 0.7 What's new in the academic literature since the original framework
+
+The original framework was designed against the 2023–2024 academic
+literature. By Q2 2026, several substantial updates have emerged.
+The simulation pipeline incorporates these per `EMPIRICAL_ANALOGS.md`
+v2.0 (2026-06-16 addendum). Headline updates and their implications:
+
+**Acemoglu (2024) "The Simple Macroeconomics of AI"** (NBER WP 32487)
+— published October 2024. Provides a tractable task-based framework
+calibrated to LLM-era automation potential. Estimates aggregate
+productivity gain from AI through 2034 at ~0.5–1.0pp/yr in the central
+case, materially below SF Consensus scenarios. Anchors the
+status-quo baseline in `BASELINE_2026.md` and informs Package F
+(Build-Different-AI) specification.
+
+**Korinek (2024) "Scenarios for the Transition to AGI"** (NBER WP
+32549). Four-scenario taxonomy with explicit transition dynamics:
+Slow Growth, Faster Growth, Faster Acceleration, Transformative AI.
+The framework's recommendation should arguably differ across these
+scenarios. We add **Package H: Korinek-Scenario-Conditional** to the
+comparative analysis (Part IV §H) as a direct response — operationalizing
+the adaptive-intensity proposal from Korinek (2024) §4. This is the
+intellectual lineage closest to active Anglo-American AI macro work.
+
+**Brynjolfsson, Li & Raymond (2023) and successors** — direct firm-level
+RCT evidence on GenAI productivity. The Brynjolfsson-Li-Raymond customer
+service study (14% productivity boost concentrated on low-skill
+workers), Peng et al. on GitHub Copilot (55.8% faster task completion),
+and Noy-Zhang on professional writing (40% faster, 18% quality
+improvement) together provide the strongest empirical evidence to date
+on AI productivity at work. Inform the v2.0 widening of the
+`ai_productivity_growth` upper tail (`EMPIRICAL_ANALOGS.md` §7.1).
+
+**Pizzinelli, Cazzaniga et al. (2024 IMF)** "Labor Market Exposure to
+AI: A Refined Task-Based Approach." Updates the workforce skill-mix
+calibration. Critically: the complementarity-dominant fraction (workers
+whose jobs are AI-augmented rather than AI-substituted) is *higher*
+than the v1.0 calibration assumed — ~42% vs. our previous 30%.
+This shifts Package F (Build-Different-AI) effects upward and Pillar 4
+(Reskilling) target population downward (`EMPIRICAL_ANALOGS.md` §7.2).
+
+**Cazzaniga, Tavares, Pizzinelli et al. (2024 IMF SDN/2024/001)** "Gen-AI:
+Artificial Intelligence and the Future of Work." Synthesizes firm-level
+productivity evidence into national projections. Median estimate of AI-
+driven TFP growth contribution to advanced economies: 0.5–1.5pp/yr added
+to baseline over 2024–2034. Anchors the wider AI productivity uncertainty
+range in `EMPIRICAL_ANALOGS.md` §7.1.
+
+**Jakobsen, Jakobsen, Kleven & Zucman (2020) + Saez-Zucman (2022)**
+— refined behavioral elasticity estimates on wealth taxation. Danish
+administrative-data study finds smaller behavioral response than
+Bach (2014) French ISF estimates. US-specific estate-tax study finds
+0.002–0.004/yr/pp elasticity, below European estimates. The v2.0
+capital-flight range narrows accordingly to [0.002, 0.012] vs. v1.0
+[0.003, 0.015] (`EMPIRICAL_ANALOGS.md` §7.4). Net effect: unilateral
+framework adoption is somewhat more politically feasible than v1.0
+calibration suggested.
+
+**OpenResearch (Y Combinator) UBI Study final results (2024)** — the
+strongest single-source US RCT evidence for UBI. Three-year, 3,000-
+participant trial finalized in late 2024 with detailed labor supply
+and behavioral findings. Narrows the UBI labor-supply elasticity
+estimate from Marinescu (2018) generic range to OpenResearch point
+estimate (~ −0.04). Strengthens Package E (Direct Redistribution)
+empirical foundation (`EMPIRICAL_ANALOGS.md` §7.6).
+
+**Post-DeepSeek API pricing data (2025)** — direct empirical observation
+of the markup compression Pillar 5 was designed to produce. Frontier
+model API prices fell 40–70% in H1 2025 following DeepSeek R1 release.
+This is the *open-weights inversion* effect documented in §0.3 above —
+and it materially weakens Pillar 5's marginal contribution in the
+v2.0 simulator. Endogenous Chinese open-weights competition has already
+delivered most of the markup compression Pillar 5 targeted
+(`EMPIRICAL_ANALOGS.md` §7.3).
+
+**Bommasani, Kapoor, Klyman et al. Foundation Model Transparency
+Index 2025** — extends 2023 baseline with updated capability disclosure
+data. Provides empirical anchor for Package C (CERN-AI), Package D
+(Compute-Centric), and Package G (Game-Theoretic-Derived) capability-
+disclosure provisions.
+
+**Bengio et al. (2025) International AI Safety Report** — January 2025
+publication, commissioned by the AISI Network. Documents catastrophic-
+risk pathways the framework doesn't directly address but should engage
+with. Relevant to Question 10 (safety integration).
+
+**Anthropic Economic Index (2025)** — first systematic analysis of
+GenAI task integration patterns from production usage data. Identifies
+where AI is being used as complement vs. substitute. Provides AI-
+specific empirical anchor for Pillar 4 (Reskilling) where v1.0 had
+to rely on Card-Kluve-Weber cyclical-unemployment evidence.
+
+**Active FTC enforcement on AI cloud structures (2024–2025)** —
+investigations of Microsoft-OpenAI, Amazon-Anthropic, Google-Anthropic
+equity arrangements. UK CMA AI foundation model market investigation.
+These provide ongoing empirical data on antitrust feasibility for
+Package D (Compute-Centric) structural separation.
+
+**Aggregate effect on the simulation findings.** The v2.0 calibration
+updates (documented in `EMPIRICAL_ANALOGS.md` §7) shift specific
+quantitative claims modestly. Notably:
+
+- Package B (Framework) median income gain narrows from +5.0% to +3.4%
+  (Pillar 4 effect dampened; Pillar 5 dampened by post-DeepSeek
+  baseline; Pillar 1 × Pillar 6 substitutability now modeled).
+- Package C (CERN-AI) markup compression strengthens (lab × governance
+  complementarity).
+- Package G (Game-Theoretic-Derived) median income strengthens to +5.5%.
+- Package H (Korinek-Scenario) appears as the highest median-income
+  gain at +13.8% — the adaptive-intensity approach uses scenario
+  information the static packages don't.
+
+**Comparative ordering between packages is largely preserved across
+v1.0 → v2.0.** The directional findings in Part V are robust to the
+calibration update. Specific quantitative claims tighten in some places
+and shift in others, but the overall comparative analysis stands.
+
 ---
 
 # Part I — The Status Quo Questions
@@ -1508,6 +1625,68 @@ tests.
 treaty + CERN-AI + UBC + structural separation simultaneously).
 Coalition formation cost is high. Politically more expensive than the
 original framework's six pillars.
+
+## Package H — Korinek-Scenario-Conditional (v2.0 addition)
+
+**What it does.** Scenario-adaptive intensity calibrated to Korinek
+(2024) NBER WP 32549 four-scenario taxonomy (Slow Growth / Faster
+Growth / Faster Acceleration / Transformative AI). Seven scenario-
+conditional levers: AI tax, UBI + UBC, sovereign equity, CERN-AI lab,
+reskilling, compute governance, capability disclosure. Each lever's
+intensity scales with the realized `ai_productivity_growth` parameter
+at runtime — under Slow Growth, modest intervention; under
+Transformative AI, full-scale UBI + maximum sovereign equity + treaty-
+grade governance.
+
+**Trajectory delta vs. status quo at 2036** (at central calibration —
+midpoint scenario).
+- US labor share: +0.16pp
+- US top-1% wealth share: **−0.38pp**
+- US mean markup: −0.003 (smaller than Package C because lab activation
+  is contingent on realized productivity)
+- US real GDP: −0.25%
+- US median household real income: **+13.8%** (highest of any package;
+  UBI + UBC scaled to midpoint scenario)
+- US substitute employment: +0.01%
+- Geopolitical stability: +2.1 points
+
+**Time-to-effect profile.** Initial activation at framework-scale
+calibration (years 0–3). Lever intensity scales up as realized
+productivity exceeds Faster Growth threshold (years 3+ depending on
+trajectory). UBI provides immediate distributional support; treaty
+and lab activate when warranted by productivity acceleration.
+
+**Who wins.** Bottom 90% of households across both countries
+(particularly under high-productivity scenarios where UBI scales up).
+Researchers and small AI firms via CERN-AI activation. International
+order via compute governance.
+
+**Who loses.** Top decile via expanded sovereign equity + AI tax
+combination. Private frontier lab investors. Strategic-competition
+hawks (treaty constraints scale with productivity, becoming binding
+under Transformative AI scenarios).
+
+**Strongest argument for.** The only package that explicitly engages
+the Korinek (2024) scenario taxonomy — which is the live academic
+framework most directly anchored in transformation-economics literature.
+Adaptive intensity is mechanism-design-correct: don't impose UBI-scale
+intervention under Slow Growth (deadweight) and don't impose only
+reskilling under Transformative AI (insufficient). The adaptive
+intensity also handles the deep uncertainty about which Korinek
+scenario will realize — better than choosing one a priori.
+
+**Strongest argument against.** Requires credible commitment to scaling
+mechanisms — a hard political problem. Korinek (2024) is theoretical
+work; the scenario taxonomy is intellectually defensible but not yet
+empirically validated. Some pillars activate "later" which delays
+distributional support. Package H is the most academic-policy-shaped
+of the seven; political feasibility is uncertain.
+
+> **▶ Reproduce.** `python -c "from src.core import BilateralSimulator;
+> from src.packages import KORINEK_SCENARIO; sim = BilateralSimulator();
+> df = sim.run(package=KORINEK_SCENARIO, coalition_share=0.7,
+> cn_cooperation=0.5).to_dataframe(); print(df.loc[2036])"` regenerates
+> the trajectory.
 
 ---
 

@@ -12,6 +12,7 @@ Packages:
     E. direct_redistribution — UBI + wealth tax + UBC + care economy
     F. build_different       — Acemoglu directed-AI; procurement; codetermination
     G. game_theoretic        — Eight pillars derived from robustness constraints
+    H. korinek_scenario      — Scenario-adaptive intensity per Korinek (2024)
 """
 
 from src.packages.base import (
@@ -27,6 +28,7 @@ from src.packages.registry import (
     COMPUTE_CENTRIC,
     DIRECT_REDISTRIBUTION,
     GAME_THEORETIC,
+    KORINEK_SCENARIO,
     NEBULAI_SIX,
     NEBULAI_SIX_SEQUENTIAL,
     NEBULAI_SIX_VARIANTS,
@@ -54,4 +56,5 @@ __all__ = [
     "DIRECT_REDISTRIBUTION",
     "BUILD_DIFFERENT",
     "GAME_THEORETIC",
+    "KORINEK_SCENARIO",
 ]

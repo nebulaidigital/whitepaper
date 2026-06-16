@@ -111,12 +111,15 @@ PILLAR_4_RESKILLING = PolicyLever(
     parameter_changes={
         "epsilon_sub_shift": 1.5,  # outside-option improvement
         "skill_mix_complement_shift": 0.05,  # 5pp shift sub→complement
-        "reskilling_earnings_effect": 0.10,  # 10% earnings boost (mid CKW)
+        # v2.0: central estimate lowered to Brookings Hamilton 2024 median
+        # (~8%) from CKW 2018 broad-sample median (~10%) per
+        # EMPIRICAL_ANALOGS.md §7.5. Range unchanged.
+        "reskilling_earnings_effect": 0.08,
     },
     reversibility=Reversibility.REVERSIBLE,
     requires_coordination=False,
     coalition_threshold=0.0,
-    citation="SOURCES.md addendum: Card-Kluve-Weber 2018; Heckman-LaLonde-Smith 1999",
+    citation="EMPIRICAL_ANALOGS.md §7.5 (v2.0); Card-Kluve-Weber 2018 + Brookings Hamilton 2024",
 )
 
 PILLAR_5_OPEN_WEIGHTS = PolicyLever(
@@ -129,7 +132,11 @@ PILLAR_5_OPEN_WEIGHTS = PolicyLever(
         "in Q1 2026 conditions (post-DeepSeek open-weights inversion)."
     ),
     parameter_changes={
-        "ai_markup_growth_dampening": 0.40,
+        # v2.0: dampening lowered from 0.40 (v1.0) to 0.20 because
+        # the post-DeepSeek baseline already shows endogenous markup
+        # compression; remaining policy-induced marginal effect is
+        # smaller. See EMPIRICAL_ANALOGS.md §7.3.
+        "ai_markup_growth_dampening": 0.20,
         "ai_sector_concentration_shift": -0.05,
     },
     reversibility=Reversibility.IRREVERSIBLE,  # released weights cannot be retracted

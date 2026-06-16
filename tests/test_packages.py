@@ -14,6 +14,7 @@ from src.packages import (
     COMPUTE_CENTRIC,
     DIRECT_REDISTRIBUTION,
     GAME_THEORETIC,
+    KORINEK_SCENARIO,
     NEBULAI_SIX,
     NEBULAI_SIX_SEQUENTIAL,
     PACKAGES_BY_CODE,
@@ -25,10 +26,11 @@ from src.packages import (
 )
 
 
-def test_all_seven_packages_present():
-    assert len(ALL_PACKAGES) == 7
+def test_all_packages_present():
+    """Eight packages: A-G plus H (Korinek-Scenario-Conditional, v2.0 addition)."""
+    assert len(ALL_PACKAGES) == 8
     codes = {pkg.code for pkg in ALL_PACKAGES}
-    assert codes == {"A", "B", "C", "D", "E", "F", "G"}
+    assert codes == {"A", "B", "C", "D", "E", "F", "G", "H"}
 
 
 def test_packages_by_code_lookup():
@@ -39,6 +41,17 @@ def test_packages_by_code_lookup():
     assert get_package("E") is DIRECT_REDISTRIBUTION
     assert get_package("F") is BUILD_DIFFERENT
     assert get_package("G") is GAME_THEORETIC
+    assert get_package("H") is KORINEK_SCENARIO
+
+
+def test_korinek_scenario_has_seven_levers():
+    """Package H operationalizes Korinek (2024) four-scenario taxonomy
+    with seven scenario-adaptive levers."""
+    assert len(KORINEK_SCENARIO.levers) == 7
+    assert KORINEK_SCENARIO.sequencing == "sequential"
+    # Every lever should reference 'Korinek-conditional' in the name
+    for lever in KORINEK_SCENARIO.levers:
+        assert "Korinek" in lever.name or "Scenario-Adaptive" in lever.name
 
 
 def test_invalid_code_raises():

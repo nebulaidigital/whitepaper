@@ -19,10 +19,13 @@
 | **2. Multi-model anchor** | Acemoglu 2024 (NBER WP 32487) replication code running locally; Tier 1 deterministic runs; sanity check vs. Phase 1 deltas | ⬜ Not started | ~1 week |
 | **3. Bilateral US-China model** | Two-country extension of Acemoglu 2024 with PWT 11.0 / WID calibration; Tier 1 + Tier 2 runs (54 deterministic) | ⬜ Not started | ~2 weeks |
 | **4. RDM scenario discovery** | EMA Workbench wrapping bilateral model; ~25k draws over jointly-sampled parameters; sign-flip identification | ⬜ Not started | ~1 week |
-| **5. Synthesis + red team** | Reversibility / lock-in matrix; leading indicators per pillar; stakeholder/coalition map; commissioned hostile critique; final comparison table | ⬜ Not started | ~1.5 weeks |
-| **6. Whitepaper integration** | Updated methodology, empirical, and limitations sections; figures regenerated from model output | ⬜ Not started | ~1 week |
+| **5. Synthesis + red team** | Reversibility / lock-in matrix; leading indicators per pillar; stakeholder/coalition map; commissioned hostile critique; final comparison table | 🟡 Partial (stress tests + figures + methodology + limitations done; hostile critique pending) | ~1.5 weeks remaining |
+| **6. Whitepaper integration** | Updated methodology, empirical, and limitations sections; figures regenerated from model output | ✅ v0.2 complete (2026-06-16 with v2.0 calibration + Package H Korinek + lever interactions) | — |
+| **7. Multi-model ensemble** | Run scenarios through Acemoglu 2024 + Korinek-Stiglitz + Aghion-Bunel as independent models; report agreement across models (IPCC-style) | ⬜ Deferred (1–2 weeks, depends on replication code availability) | Largest single credibility upgrade per PhD-review standard |
+| **8. Three-tier extension** | Country disaggregation to Frontier / Emerging / Developing tiers per CLAUDE.md original spec | ⬜ Deferred | Adoption-equilibrium claim across all country tiers |
+| **9. Structural HANK rebuild** | HARK or Sequence Space Jacobian rebuild for absolute-level claims (vs. current reduced-form deltas) | ⬜ Deferred | 3–4 sessions |
 
-Total estimated calendar time: ~6–8 weeks of focused work.
+Total estimated calendar time to v0.2 release: complete. v1.0 requires Phases 7–9.
 
 ### Phase 0 deliverables (completed 2026-05-01)
 

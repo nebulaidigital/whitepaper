@@ -34,12 +34,16 @@ UBI = PolicyLever(
     parameter_changes={
         "ubi_monthly_per_adult": 1200.0,
         "transfer_funding_per_gdp": 0.060,  # 6% of GDP — substantial
-        "labor_supply_elasticity": -0.05,  # modest reduction per Marinescu 2018
+        # v2.0: OpenResearch UBI final results (3-year RCT, late 2024)
+        # found ~4% labor supply reduction (1.3 hours/week of 33h avg)
+        # — narrower confidence interval than Marinescu 2018 range.
+        # See EMPIRICAL_ANALOGS.md §7.6.
+        "labor_supply_elasticity": -0.04,
         "monopsony_outside_option_strength": 1.3,
     },
     reversibility=Reversibility.SEMI_REVERSIBLE,  # politically locked once enacted
     requires_coordination=False,
-    citation="Marinescu 2018; OpenResearch UBI 2024; Banerjee et al. 2019",
+    citation="EMPIRICAL_ANALOGS.md §7.6 (v2.0); OpenResearch UBI Study 2024 final + Marinescu 2018",
 )
 
 WEALTH_TAX_PROGRESSIVE = PolicyLever(

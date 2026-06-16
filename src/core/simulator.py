@@ -94,11 +94,12 @@ class SimulatorConfig:
     cn_gdp_growth_rate: float = 0.045  # IMF WEO 2025-2036 ~4.5%
 
     # Sweep parameters (RDM)
+    # v2.0 updates: see EMPIRICAL_ANALOGS.md §7.1, §7.4, §7.5
     sigma_task_elasticity: float = 1.5  # PREREG §7 — Acemoglu-Restrepo 2022
-    capital_flight_elasticity: float = 0.005  # /yr/pp — Bach-Brülhart midpoint
-    reskilling_earnings_effect: float = 0.10  # midpoint Card-Kluve-Weber
-    open_weights_markup_dampening: float = 0.40  # default; PREREG H1 contests this
-    ai_productivity_growth: float = 0.020  # midpoint per Acemoglu 2024
+    capital_flight_elasticity: float = 0.004  # v2.0 Jakobsen et al. + Saez-Zucman 2022
+    reskilling_earnings_effect: float = 0.08  # v2.0 Brookings Hamilton 2024; was 0.10 v1.0
+    open_weights_markup_dampening: float = 0.20  # v2.0 post-DeepSeek; was 0.40 v1.0
+    ai_productivity_growth: float = 0.018  # v2.0 Cazzaniga IMF 2024 median
     cn_cooperation_propensity: float = 0.30  # subjective prior — sweep
 
     # Coalition / coordination
@@ -540,6 +541,32 @@ class BilateralSimulator:
         # productivity-side levers (e.g., directed R&D in Package F).
         gdp_relative = real_gdp / baseline.real_gdp
         median_income = median_income * gdp_relative
+
+        # Apply documented lever interactions (substitutability /
+        # complementarity). See src/core/interactions.py and
+        # PREREGISTRATION.md Hypothesis 6.
+        from src.core.interactions import total_correction_for_outcome, interaction_audit
+
+        # Apply interaction corrections to the *delta* (active − baseline),
+        # not to the absolute value, so corrections compound only what
+        # the package itself caused.
+        def _apply_correction(active: np.ndarray, baseline: np.ndarray, outcome: str) -> np.ndarray:
+            correction = total_correction_for_outcome(package, outcome)
+            if abs(correction - 1.0) < 1e-9:
+                return active
+            delta = active - baseline
+            return baseline + delta * correction
+
+        labor_share = _apply_correction(labor_share, baseline.labor_share, "us_labor_share")
+        top_1pct = _apply_correction(top_1pct, baseline.top_1pct_wealth,
+                                     "us_top_1pct" if country == "US" else "cn_top_1pct")
+        markup = _apply_correction(markup, baseline.mean_markup, "us_markup")
+        median_income = _apply_correction(median_income, baseline.median_real_income, "us_median_income")
+        sub_emp = _apply_correction(sub_emp, baseline.substitute_employment_idx, "us_substitute_emp")
+
+        # Record interaction audit entries
+        for ix_name, outcome, correction in interaction_audit(package):
+            audit.append((ix_name, outcome, "interaction", correction))
 
         return (
             CountryResult(

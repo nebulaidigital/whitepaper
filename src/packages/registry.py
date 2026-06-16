@@ -11,6 +11,7 @@ from src.packages.cern_ai import CERN_AI
 from src.packages.compute_centric import COMPUTE_CENTRIC
 from src.packages.direct_redistribution import DIRECT_REDISTRIBUTION
 from src.packages.game_theoretic import GAME_THEORETIC
+from src.packages.korinek_scenario import KORINEK_SCENARIO
 from src.packages.nebulai_six import NEBULAI_SIX, NEBULAI_SIX_SEQUENTIAL
 from src.packages.status_quo import STATUS_QUO
 
@@ -23,6 +24,7 @@ ALL_PACKAGES: tuple[PolicyPackage, ...] = (
     DIRECT_REDISTRIBUTION,
     BUILD_DIFFERENT,
     GAME_THEORETIC,
+    KORINEK_SCENARIO,
 )
 
 
@@ -78,4 +80,5 @@ __all__ = [
     "DIRECT_REDISTRIBUTION",
     "BUILD_DIFFERENT",
     "GAME_THEORETIC",
+    "KORINEK_SCENARIO",
 ]
