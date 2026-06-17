@@ -89,8 +89,9 @@ class PolicyPackage:
     sequencing: str = "simultaneous"
 
     def __post_init__(self) -> None:
-        if self.code not in {"A", "B", "C", "D", "E", "F", "G", "H", "N", "R"}:
-            raise ValueError(f"Package code {self.code} not in A–H, N, R")
+        valid = {"A", "B", "C", "D", "E", "F", "G", "H", "K", "N", "P", "R"}
+        if self.code not in valid:
+            raise ValueError(f"Package code {self.code} not in {sorted(valid)}")
         if self.sequencing not in {"simultaneous", "sequential"}:
             raise ValueError(f"sequencing must be 'simultaneous' or 'sequential'")
 

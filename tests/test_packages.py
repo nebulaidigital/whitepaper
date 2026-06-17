@@ -29,10 +29,11 @@ from src.packages import (
 
 
 def test_all_packages_present():
-    """Ten packages: A-H plus R (Recommended) and N (Nebulai v2 best-of-all)."""
-    assert len(ALL_PACKAGES) == 10
+    """Twelve packages: A-H, K (Conservative v3-A), N (Nebulai v2),
+    P (Progressive v3-B), R (Recommended)."""
+    assert len(ALL_PACKAGES) == 12
     codes = {pkg.code for pkg in ALL_PACKAGES}
-    assert codes == {"A", "B", "C", "D", "E", "F", "G", "H", "N", "R"}
+    assert codes == {"A", "B", "C", "D", "E", "F", "G", "H", "K", "N", "P", "R"}
 
 
 def test_packages_by_code_lookup():

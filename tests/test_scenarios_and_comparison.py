@@ -54,15 +54,15 @@ def test_scenarios_produce_different_baselines():
 def test_cross_scenario_table_shape():
     """Should have 3 scenarios × 10 packages = 30 rows (v0.5 added Nebulai v2)."""
     df = cross_scenario_table()
-    assert len(df) == 30
+    assert len(df) == 36
     assert set(df["scenario"].unique()) == {"substitute", "complement", "new_tasks"}
-    assert len(df["package_code"].unique()) == 10
+    assert len(df["package_code"].unique()) == 12
 
 
 def test_package_robustness_returns_aggregated():
     df = cross_scenario_table()
     robust = package_robustness(df)
-    assert len(robust) == 10
+    assert len(robust) == 12
     # Higher mean delta = more welfare-improving on average
     assert "delta_median_income_mean" in robust.columns
     assert "delta_median_income_std" in robust.columns

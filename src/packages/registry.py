@@ -14,6 +14,7 @@ from src.packages.game_theoretic import GAME_THEORETIC
 from src.packages.korinek_scenario import KORINEK_SCENARIO
 from src.packages.nebulai_six import NEBULAI_SIX, NEBULAI_SIX_SEQUENTIAL
 from src.packages.nebulai_v2 import NEBULAI_V2
+from src.packages.nebulai_v3 import NEBULAI_V3_CONSERVATIVE, NEBULAI_V3_PROGRESSIVE
 from src.packages.recommended import RECOMMENDED
 from src.packages.status_quo import STATUS_QUO
 
@@ -29,6 +30,8 @@ ALL_PACKAGES: tuple[PolicyPackage, ...] = (
     KORINEK_SCENARIO,
     RECOMMENDED,
     NEBULAI_V2,
+    NEBULAI_V3_CONSERVATIVE,
+    NEBULAI_V3_PROGRESSIVE,
 )
 
 
@@ -87,4 +90,6 @@ __all__ = [
     "KORINEK_SCENARIO",
     "RECOMMENDED",
     "NEBULAI_V2",
+    "NEBULAI_V3_CONSERVATIVE",
+    "NEBULAI_V3_PROGRESSIVE",
 ]

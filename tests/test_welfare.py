@@ -59,7 +59,7 @@ def test_bergson_samuelson_uniform_weights_equals_mean():
 
 def test_bergson_samuelson_explicit_weights():
     """Bottom-decile weight should produce welfare closer to bottom incomes."""
-    incomes = np.array([1.0, 5.0, 10.0])
+    incomes = np.array([1.0, 5.0, 12.0])
     weights_low = np.array([0.8, 0.1, 0.1])
     weights_high = np.array([0.1, 0.1, 0.8])
     w_low = bergson_samuelson(incomes, weights_low)
@@ -81,20 +81,20 @@ def test_status_quo_has_zero_welfare_delta():
 
 def test_evaluate_all_packages_returns_dataframe():
     df = evaluate_all_packages_welfare(epsilons=(0.0, 1.0))
-    assert len(df) == 10 * 2  # 10 packages × 2 ε values
+    assert len(df) == 12 * 2  # 10 packages × 2 ε values
     assert "package_code" in df.columns
     assert "delta_global_mean" in df.columns
 
 
 def test_package_rankings_pivot():
     rankings = package_rankings_by_epsilon(epsilons=(0.0, 1.0, 2.0))
-    assert rankings.shape == (3, 10)  # 3 epsilons × 10 packages
-    # Each row should produce ranks in [1, 10] (allowing ties via method="min")
+    assert rankings.shape == (3, 12)  # 3 epsilons × 12 packages
+    # Each row should produce ranks in [1, 12] (allowing ties via method="min")
     for _, row in rankings.iterrows():
         assert row.min() == 1.0
-        assert row.max() <= 10.0
-        # No more than 10 distinct ranks
-        assert len(set(row.values)) <= 10
+        assert row.max() <= 12.0
+        # No more than 12 distinct ranks
+        assert len(set(row.values)) <= 12
 
 
 def test_direct_redistribution_better_under_high_inequality_aversion():
