@@ -11,6 +11,7 @@ from src.packages.cern_ai import CERN_AI
 from src.packages.compute_centric import COMPUTE_CENTRIC
 from src.packages.direct_redistribution import DIRECT_REDISTRIBUTION
 from src.packages.game_theoretic import GAME_THEORETIC
+from src.packages.acemoglu_augmentation import ACEMOGLU_AUGMENTATION
 from src.packages.korinek_scenario import KORINEK_SCENARIO
 from src.packages.nebulai_six import NEBULAI_SIX, NEBULAI_SIX_SEQUENTIAL
 from src.packages.nebulai_v2 import NEBULAI_V2
@@ -32,6 +33,7 @@ ALL_PACKAGES: tuple[PolicyPackage, ...] = (
     NEBULAI_V2,
     NEBULAI_V3_CONSERVATIVE,
     NEBULAI_V3_PROGRESSIVE,
+    ACEMOGLU_AUGMENTATION,
 )
 
 
@@ -92,4 +94,5 @@ __all__ = [
     "NEBULAI_V2",
     "NEBULAI_V3_CONSERVATIVE",
     "NEBULAI_V3_PROGRESSIVE",
+    "ACEMOGLU_AUGMENTATION",
 ]

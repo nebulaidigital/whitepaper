@@ -22,6 +22,7 @@ from src.packages.base import (
     Reversibility,
 )
 from src.packages.registry import (
+    ACEMOGLU_AUGMENTATION,
     ALL_PACKAGES,
     BUILD_DIFFERENT,
     CERN_AI,
@@ -65,4 +66,5 @@ __all__ = [
     "NEBULAI_V2",
     "NEBULAI_V3_CONSERVATIVE",
     "NEBULAI_V3_PROGRESSIVE",
+    "ACEMOGLU_AUGMENTATION",
 ]

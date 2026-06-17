@@ -81,20 +81,20 @@ def test_status_quo_has_zero_welfare_delta():
 
 def test_evaluate_all_packages_returns_dataframe():
     df = evaluate_all_packages_welfare(epsilons=(0.0, 1.0))
-    assert len(df) == 12 * 2  # 10 packages × 2 ε values
+    assert len(df) == 13 * 2  # 10 packages × 2 ε values
     assert "package_code" in df.columns
     assert "delta_global_mean" in df.columns
 
 
 def test_package_rankings_pivot():
     rankings = package_rankings_by_epsilon(epsilons=(0.0, 1.0, 2.0))
-    assert rankings.shape == (3, 12)  # 3 epsilons × 12 packages
+    assert rankings.shape == (3, 13)  # 3 epsilons × 12 packages
     # Each row should produce ranks in [1, 12] (allowing ties via method="min")
     for _, row in rankings.iterrows():
         assert row.min() == 1.0
-        assert row.max() <= 12.0
-        # No more than 12 distinct ranks
-        assert len(set(row.values)) <= 12
+        assert row.max() <= 13.0
+        # No more than 13 distinct ranks
+        assert len(set(row.values)) <= 13
 
 
 def test_direct_redistribution_better_under_high_inequality_aversion():
