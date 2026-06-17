@@ -17,18 +17,19 @@ produced the evidence so readers can stress-test every claim. Within
 these parts we make no recommendation; we document the conditions
 under which each option dominates.
 
-**Part VI selects one recommendation based on the simulation data
-alone**, ignoring political-feasibility considerations. The convergent
-simulation evidence (Package H welfare-dominant across every Atkinson ε
-from utilitarian to Rawlsian; wins all three AI regime scenarios; wins
-100% of RDM futures on median income; OOS backtest passing on 8/9
-indicators) points to a single empirically-best architecture: **Package
-H — the Korinek-Scenario-Conditional framework**. Part VI documents
-the per-package data reads, the side-by-side comparison, the
-operational specification, and the conditions under which the
-recommendation would shift. Readers who reject the welfare-dominance
-finding can stop at Part V; readers who accept it (or want to engage
-with the empirical case) continue.
+**Part VI selects empirically-defensible recommendations** based on the
+simulation data alone, ignoring political-feasibility considerations.
+The simulation produces a primary aggregate-welfare winner — **Package
+H, the Korinek-Scenario-Conditional framework** — alongside three other
+empirically-defensible recommendations depending on which welfare
+priority dominates: Package P (Progressive, for maximum median income
++ growth), Package N (Nebulai v2, for best-balanced across dimensions),
+and Package E (Direct Redistribution, for bottom-decile maximum at
+Rawlsian ε). Part VI documents per-package data reads, side-by-side
+comparison, the political-variant test, operational specifications,
+and conditions under which recommendations would shift. Readers who
+reject the welfare findings can stop at Part V; readers who accept
+them continue.
 
 Each question in Parts I–V is presented as:
 
@@ -2688,6 +2689,232 @@ for lever in NEBULAI_V2.levers:
     print(f'{lever.name}')
     print(f'  Reversibility: {lever.reversibility}')
     print(f'  Coordination: {lever.requires_coordination}')
+"
+```
+
+## 6.14 Political-variant testing: Nebulai v3 Conservative + Progressive
+
+A natural question after specifying the centrist Nebulai v2 architecture
+is whether the framework's mechanics are politically-robust. Does the
+empirical case for intervention hold across the political spectrum, or
+do different welfare priorities require fundamentally different
+architectures? We test this directly with two political-variant
+specifications anchored to actual policy traditions.
+
+### 6.14.1 The two variants
+
+**Nebulai v3-A Conservative (Package K)** — Market-Sovereign Architecture.
+Intellectual basis: Cowen / Cochrane / national-security AI hawks.
+Emphasizes private capital primacy, work incentives, national
+competitiveness, strategic competition with China. Nine pillars at
+modest intervention intensity:
+
+- Modest Sovereign Equity (5–15% — preserve private capital primacy)
+- National Security Compute ($15B/yr vs v2's $55B)
+- Strengthened Export Controls + Strategic Posture (no compute treaty
+  with China)
+- Market-Based Reskilling via tax credits (not entitlement)
+- Light Antitrust framed for national competitiveness
+- Modest AI Tax (2–4%, growth-friendly)
+- UBC Only ($30K — NO UBI, to preserve work incentives)
+- Directed AI for National Competitiveness (vs. China)
+- AI Liability + Insurance (market mechanism)
+
+**Nebulai v3-B Progressive (Package P)** — Workers' AI Economy Architecture.
+Intellectual basis: Stiglitz / Saez / Mazzucato / Acemoglu-Johnson
+left-interpretation. Emphasizes public ownership, worker power,
+decommodification, care economy. Nine pillars at aggressive
+intervention intensity:
+
+- Aggressive Sovereign Equity (25–50%)
+- Maximum Public AI Infrastructure ($80B/yr)
+- Global Commons Governance (inclusive, including China)
+- Universal Reskilling + Mandatory Codetermination + Care Economy
+  ($300B/yr)
+- Aggressive Structural Separation + Mandatory Open Weights
+- Maximum AI Tax (8–15%, OECD-coordinated)
+- Full UBI ($1,500/month) + UBC ($75K) + Wealth Tax (Saez-Zucman 2019)
+- Directed AI for Labor Complementarity (literal Acemoglu-Johnson)
+- Public-Interest AI Safety (mandatory pre-deployment + pause authority)
+
+**Nebulai v3-C Centrist** is the existing Nebulai v2 (Package N) — the
+empirical centrist synthesis already documented in §6.13.
+
+### 6.14.2 Empirical results — three political variants compared
+
+| Metric | K (Conservative) | N (Centrist v2) | P (Progressive) |
+|---|---|---|---|
+| US median income Δ% | +3.40 | +14.97 | **+22.4** |
+| US real GDP Δ% | +0.73 | +1.03 | **+1.72** |
+| US top-1% wealth share Δpp | −0.23 | −0.45 | **−0.71** |
+| US labor share Δpp | +0.14 | +0.20 | **+0.26** |
+| US markup compression Δ | −0.035 | −0.122 | −0.179 |
+| US geopolitical stability Δ | −1.0 | +3.0 | **+4.5** |
+| Atkinson welfare delta at ε=1 | +3.39 | +14.65 | **+21.48** |
+| Welfare rank across all ε | 9 | 3–4 | **2** |
+
+**Headline finding: the Progressive variant (P) dominates the Centrist
+variant (N) on every metric tested**, and dominates the Conservative
+variant (K) by very large margins.
+
+### 6.14.3 The Conservative variant is empirically weak
+
+Package K (Conservative) produces:
+- Median income gain of +3.40% — essentially tied with the original
+  Nebulai Six Framework (+3.41%) which it was designed to improve upon
+- Welfare rank 9 of 12 across all Atkinson ε values
+- Negative geopolitical stability delta (the strategic-competition posture
+  worsens stability outcomes)
+- Modest GDP gain (+0.73%) — below v2's +1.03% and well below Build-
+  Different (+1.50%) or Progressive (+1.72%)
+
+The Conservative trade-off — accepting less redistribution in exchange
+for more growth and preserved work incentives — **does not deliver the
+growth conservatives claim**. The simulation finds that lighter-
+intensity interventions produce both worse distribution AND worse
+growth than higher-intensity alternatives.
+
+This is a substantive empirical finding. It does not "prove" the
+Conservative position wrong (a different model could find different
+results), but it provides evidence-based pushback against the standard
+right-of-center framing that aggressive redistribution costs growth.
+In this simulation, on these calibrations, aggressive redistribution
+co-occurs with stronger growth.
+
+### 6.14.4 The Progressive variant is empirically strong
+
+Package P (Progressive) produces:
+- Median income gain of **+22.4%** — beats Nebulai v2 by 7.4pp and
+  even beats Package H by 8.6pp
+- GDP gain of **+1.72%** — beats every other package, including
+  Build-Different-AI (+1.50%)
+- Welfare rank 2 across all ε from utilitarian to Rawlsian, only
+  beaten by Package H (Korinek-Scenario-Conditional)
+- Top-1% wealth share reduction of −0.71pp — second only to Direct
+  Redistribution (−0.80pp)
+
+The Progressive trade-off — accepting larger fiscal commitments and
+more aggressive market-structure interventions in exchange for strong
+distributional and growth gains — **delivers on its empirical
+promise** in the simulation.
+
+Caveat: the reduced-form simulator may understate deadweight losses
+from very aggressive interventions (full UBI at 9% of GDP, wealth
+tax with capital-flight responses). A structural HANK rebuild (Phase
+9 of the roadmap) could shift these results. The directional finding
+that aggressive interventions outperform should be robust to
+calibration; the specific magnitudes may not be.
+
+### 6.14.5 Why aggregate welfare still favors Package H
+
+Despite the Progressive variant's strong median-income performance,
+the Atkinson aggregate welfare ranking still places Package H first
+across all ε. Why? Package H's scenario-adaptive intensity uses
+**information about realized AI productivity** that the static
+Progressive variant doesn't. Under high-productivity scenarios,
+Package H activates maximum intensity (which is similar to Package P).
+Under low-productivity scenarios, Package H scales down to avoid
+unnecessary intervention. Static Package P activates maximum intensity
+in all scenarios.
+
+The implication: **adaptive intensity dominates static intensity even
+under aggressive specifications**, because scenarios where productivity
+is low don't justify maximum intervention costs.
+
+### 6.14.6 What the political-variant test reveals
+
+Four findings:
+
+**Finding 1: The framework's mechanics are politically-robust.**
+Welfare-positive results obtain across the political spectrum, from
+modest Conservative interventions to aggressive Progressive ones.
+The architecture is not ideologically-bound.
+
+**Finding 2: But intensity matters substantially.** Across the
+spectrum, higher intervention intensity produces higher welfare
+gains in this simulation. The standard centrist intuition that
+"moderation produces best results" is not supported by the data.
+
+**Finding 3: Conservative trade-offs don't pay off empirically.**
+The growth gains conservatives claim from light intervention are
+not present in the simulation — Conservative ranks #9 of 12 on
+welfare and below most alternatives on GDP.
+
+**Finding 4: Progressive interventions empirically dominate centrist
+moderation.** Package P beats the centrist Nebulai v2 on every metric
+tested. The Stiglitz/Saez/Mazzucato tradition of aggressive
+intervention is empirically validated by the simulation (within the
+documented limitations).
+
+### 6.14.7 The empirically-defensible recommendations now number four
+
+The data supports four empirically-defensible recommendations,
+depending on welfare priority:
+
+**Recommendation 1 — Aggregate Welfare Optimal: Package H**
+Korinek-Scenario-Conditional. Welfare-dominant across every Atkinson ε.
+Best when policymaker prioritizes integrated decile-weighted welfare
+under deep scenario uncertainty.
+
+**Recommendation 2 — Median Voter + Growth Optimal: Package P**
+Nebulai v3-B Progressive. Highest median household income and GDP
+growth simultaneously. Best when policymaker prioritizes median-voter
+welfare and growth-distribution balance at maximum intensity.
+
+**Recommendation 3 — Best-Balanced: Package N**
+Nebulai Framework v2. Top-3 on every individual metric. Best when
+policymaker prioritizes robust performance across multiple dimensions
+at moderate intensity.
+
+**Recommendation 4 — Bottom-Decile Maximum: Package E**
+Direct Redistribution. Wins top-1% wealth share reduction; ranks
+second under Rawlsian ε=5. Best when policymaker prioritizes the
+absolute bottom of the distribution with mechanical simplicity.
+
+The Conservative variant (Package K) is **not on this list** because
+it is empirically dominated by all four recommendations above. This
+is a substantive empirical finding.
+
+### 6.14.8 What the test does not establish
+
+The political-variant test establishes that aggressive interventions
+empirically dominate light interventions in this simulation. It does
+NOT establish:
+
+- That political feasibility favors Progressive over Conservative
+  options (it almost certainly doesn't, in most democracies).
+- That a structural HANK rebuild would preserve the Progressive
+  variant's dominance — deadweight losses may be larger than the
+  reduced-form simulator captures.
+- That the Conservative variant's national-security framing is
+  empirically wrong on its own terms — the simulation measures
+  economic welfare, not strategic competitive position.
+- That Package P's calibration is correct — every parameter could be
+  refined under hostile critique (Phase 5 of the roadmap).
+
+The findings are **empirically defensible within the simulation as
+specified**, with the standard limitations of reduced-form
+counterfactual analysis (see Part X).
+
+### 6.14.9 Reproduce the political-variant findings
+
+```bash
+# Run all 12 packages including v3 Conservative + Progressive
+python scripts/run_packages.py
+
+# Welfare ranking across ε with K and P included
+python -c "
+from src.analysis.welfare import package_rankings_by_epsilon
+print(package_rankings_by_epsilon())
+"
+
+# Inspect K and P pillar specifications
+python -c "
+from src.packages import NEBULAI_V3_CONSERVATIVE, NEBULAI_V3_PROGRESSIVE
+for pkg in (NEBULAI_V3_CONSERVATIVE, NEBULAI_V3_PROGRESSIVE):
+    print(f'\n{pkg.code}: {pkg.name}')
+    for lever in pkg.levers:
+        print(f'  {lever.name}')
 "
 ```
 
